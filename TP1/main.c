@@ -2,14 +2,12 @@
 #include <stdlib.h>
 #include "herrera.h"
 
-int menu();
+//int menu();
 float num1, num2, resultadoSuma,resultadoResta,resultadoMultiplicacion,resultadoDivision;
 int main()
 {
     char seguir = 's';
     do{
-
-
     switch(menu())
     {
     case 1:
@@ -29,28 +27,17 @@ int main()
     case 4:
          mostrarResultados();
          break;
-    }
 
+    case 5:
+         animacionApagado();
+         seguir = 'n';
+        break;
+    }
 
     }while(seguir=='s');
 
-
     return 0;
 }
-//x
 
-int menu()
-{
-    int opcion;
-    system("cls");
-    printf("Menu de opciones\n\n");
-    printf("1- Ingrese el 1er operando\n");
-    printf("2- Ingrese el 2do operando\n");
-    printf("3- Calcular todas las operaciones\n");
-    printf("4- Mostrar las operaciones\n");
-    printf("5- Desea continuar operando? s/n\n");
-    fflush(stdin);
-    scanf("%d", &opcion);
 
-    return opcion;
-}
+

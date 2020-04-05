@@ -67,4 +67,18 @@ float division(float numero1, float numero2);
 *
 */
 void mostrarResultados();
+
+
+
+/**
+*
+*\brief despliega un menu con opciones
+*\param opcion, variable donde se guardara la opcion elegida
+*\return retorna el numero elegido
+*
+*/
+int menu();
+
+
+int animacionApagado();
 #endif // HERRERA_H_INCLUDED

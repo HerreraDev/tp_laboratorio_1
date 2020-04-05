@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "herrera.h"
 
 //Variables que contendran los numeros a operar.
@@ -53,7 +54,27 @@ void mostrarResultados()
     system("pause");
 }
 
+int menu()
+{
+    int opcion;
+    system("cls");
+    printf("Menu de opciones\n\n");
+    printf("1- Ingrese el 1er operando\n");
+    printf("2- Ingrese el 2do operando\n");
+    printf("3- Calcular todas las operaciones\n");
+    printf("4- Mostrar las operaciones\n");
+    printf("5- Salir\n\n");
+    scanf("%d", &opcion);
 
+    return opcion;
+}
+
+int animacionApagado()
+{
+    system("cls");
+    printf("Apagando..");
+    return 0;
+}
 
 
 
