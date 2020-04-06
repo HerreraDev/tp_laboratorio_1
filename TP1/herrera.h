@@ -59,6 +59,13 @@ float multiplicacion(float numero1, float numero2);
 */
 float division(float numero1, float numero2);
 
+/**
+*
+*\brief factoriza el numero ingresado
+*\param numero1 es donde se guardara el numero a factorizar
+*\return devuelve el resultado del factoreo
+*/
+int factoreo(int numero1);
 
 /**
 *
@@ -79,6 +86,32 @@ void mostrarResultados();
 */
 int menu();
 
-
+/**
+*
+*\brief realiza una animacion de apagado
+*\return 0
+*
+*/
 int animacionApagado();
+
+/**
+*
+*\brief es la funcion encargada de ejecutar todo
+*
+*/
+void calculadoraFinal();
+
+/**
+*
+*\brief ejecuta el primer ingreso
+*
+*/
+void ingresoPrimerNumero();
+
+/**
+*
+*\brief ejecuta el segundo ingreso
+*
+*/
+void ingresoSegundoNumero();
 #endif // HERRERA_H_INCLUDED
