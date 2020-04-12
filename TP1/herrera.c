@@ -1,10 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 
 #include "herrera.h"
 
 //Variables que contendran los numeros a operar.
-float num1, num2,resultadoSuma,resultadoResta,resultadoMultiplicacion,resultadoDivision;
+float num1=0, num2=0;
+float resultadoSuma,resultadoResta,resultadoMultiplicacion,resultadoDivision;
 //Variables para los factoriales
 int factorialNum1;
 int factorialNum2;
@@ -16,10 +19,19 @@ int flagVistaResultados = 0;
 
 float ingreseUnNumero()
 {
-    float numero1;
-    printf("Ingrese un numero: ");
-    scanf("%f", &numero1);
-    return numero1;
+    float resultadoValido;
+    char numero1[6];
+    int auxiliarValidacion;
+    do
+    {
+        printf("Ingrese un numero: ");
+        fflush(stdin);
+        scanf("%s", numero1);
+        auxiliarValidacion=validar_numero(numero1);
+    }while(auxiliarValidacion==0);
+
+    resultadoValido = atof(numero1);
+    return resultadoValido;
 }
 
 
@@ -80,12 +92,12 @@ int factoreo(int numero1){
 
 void mostrarResultados()
 {
-    printf("La suma de %.2f y %.2f es: %.2f \n", num1,num2,resultadoSuma);
-    printf("La resta de %.2f y %.2f es: %.2f \n", num1,num2,resultadoResta);
-    printf("La multiplicacion de %.2f y %.2f es: %.2f \n", num1,num2,resultadoMultiplicacion);
-    printf("La division de %.2f y %.2f es: %.2f \n", num1,num2,resultadoDivision);
-    printf("El factorial de %f es: %d\n",num1,factorialNum1);
-    printf("El factorial de %f es: %d\n",num2,factorialNum2);
+    printf("El resultado de %.2f + %.2f es: %.2f \n", num1,num2,resultadoSuma);
+    printf("El resultado de %.2f - %.2f es: %.2f \n", num1,num2,resultadoResta);
+    printf("EL resultado de %.2f / %.2f es: %.2f \n", num1,num2,resultadoDivision);
+    printf("El resultado de %.2f * %.2f es: %.2f \n", num1,num2,resultadoMultiplicacion);
+    printf("El factorial de %.2f es: %d\n",num1,factorialNum1);
+    printf("El factorial de %.2f es: %d\n",num2,factorialNum2);
     flagVistaResultados = 1;
     system("pause");
 }
@@ -95,8 +107,8 @@ int menu()
     int opcion;
     system("cls");
     printf("Menu de opciones\n\n");
-    printf("1- Ingrese el 1er operando\n");
-    printf("2- Ingrese el 2do operando\n");
+    printf("1- Ingrese el 1er operando (A=%.2f)\n",num1);
+    printf("2- Ingrese el 2do operando (B=%.2f)\n",num2);
     printf("3- Calcular todas las operaciones\n");
     printf("4- Mostrar las operaciones\n");
     printf("5- Salir\n\n");
@@ -124,7 +136,7 @@ void calculadoraFinal()
     case 2:
          if(flagNumero1==0)
             {
-                printf("Debe ingresar el primero numero antes que el segundo");
+                printf("Debe ingresar el primero numero antes que el segundo\n");
                 system("pause");
             }
          else
@@ -141,19 +153,20 @@ void calculadoraFinal()
                         printf("Error no se puede dividir por 0\n");
                         printf("A continuacion debera ingresar los operadores nuevamente\n");
                         system("pause");
+                        reseteoVariables();
                         calculadoraFinal();
                     }
                 else
                     {
-                        resultadoSuma = suma(num1,num2);
-                        resultadoResta = resta(num1,num2);
-                        resultadoMultiplicacion = multiplicacion(num1,num2);
-                        resultadoDivision = division(num1,num2);
-                        factorialNum1 = factoreo(num1);
+                        printf("Calcular la suma (%.2f + %.2f)\n",num1,num2);resultadoSuma = suma(num1,num2);
+                        printf("Calcular la resta(%.2f - %.2f)\n",num1,num2);resultadoResta = resta(num1,num2);
+                        printf("Calcular la division(%.2f / %.2f)\n",num1,num2);resultadoDivision = division(num1,num2);
+                        printf("Calcular la multiplicación (%.2f * %.2f)\n",num1,num2);resultadoMultiplicacion = multiplicacion(num1,num2);
+                        printf("Calcular el factorial (A=%.2f)!  (B=%.2f)!\n",num1,num2);factorialNum1 = factoreo(num1);
                         factorialNum2 = factoreo(num2);
-                        printf("Operaciones realizadas con exito");
-                        system("cls");
+                        printf("Operaciones realizadas con exito\n");
                         system("pause");
+                        system("cls");
                     }
              flagOperaciones = 1;
             }
@@ -174,12 +187,16 @@ void calculadoraFinal()
              printf("No se pueden mostrar los resultados ya que no se realizaron las operaciones previamente\n");
              system("pause");
          }
-
          break;
 
     case 5:
          animacionApagado();
          seguir = 'n';
+        break;
+    default:
+        printf("Error. Ingrese una opcion correcta\n");
+        system("pause");
+        fflush(stdin);
         break;
     }
 
@@ -199,3 +216,33 @@ void ingresoSegundoNumero()
 
 }
 
+void reseteoVariables()
+{
+    num1 = 0;
+    num2 = 0;
+    resultadoSuma = 0;
+    resultadoResta = 0;
+    resultadoMultiplicacion = 0;
+    resultadoDivision = 0;
+    factorialNum1 = 0;
+    factorialNum2 = 0;
+    flagNumero1 = 0;
+    flagNumero2 = 0;
+    flagOperaciones = 0;
+    flagVistaResultados = 0;
+}
+
+int validar_numero(char numero[])
+{
+    int i;
+    for(i=0; i<strlen(numero); i++)
+    {
+        if(!(isdigit(numero[i])))
+        {
+            printf("\nINGRESA SOLO NUMEROS\n");
+            system("pause");
+            return 0;
+        }
+    }
+    return 1;
+}

@@ -114,4 +114,19 @@ void ingresoPrimerNumero();
 *
 */
 void ingresoSegundoNumero();
+
+/**
+ *
+ * \brief resetea todas las variables declaradas anteriormente
+ *
+ */
+void reseteoVariables();
+
+/**
+ * \brief verifica que la cadena de caracteres ingresada no sean letras
+ * \param numero[] es el vector que contiene la cadena
+ * \return devuelve 0 si hubo letras, devuelve 1 si no hubo
+ *
+ */
+int validar_numero(char numero[]);
 #endif // HERRERA_H_INCLUDED

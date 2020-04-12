@@ -1,13 +1,17 @@
 # depslib dependency file v1.0
-1586203041 source:c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp1\main.c
+1586715015 source:c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp1\main.c
 	<stdio.h>
 	<stdlib.h>
+	<string.h>
+	<ctype.h>
 	"herrera.h"
 
-1586203932 c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp1\herrera.h
+1586717636 c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp1\herrera.h
 
-1586203822 source:c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp1\herrera.c
+1586717311 source:c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp1\herrera.c
 	<stdio.h>
 	<stdlib.h>
+	<string.h>
+	<ctype.h>
 	"herrera.h"
 
