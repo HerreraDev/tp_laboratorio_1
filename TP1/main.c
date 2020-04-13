@@ -5,7 +5,7 @@
 #include "herrera.h"
 
 
-float num1, num2, resultadoSuma,resultadoResta,resultadoMultiplicacion,resultadoDivision;
+//float num1, num2, resultadoSuma,resultadoResta,resultadoMultiplicacion,resultadoDivision;
 int main()
 {
     calculadoraFinal();

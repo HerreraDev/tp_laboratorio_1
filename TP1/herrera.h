@@ -129,4 +129,11 @@ void reseteoVariables();
  *
  */
 int validar_numero(char numero[]);
+
+/**
+*
+* \brief calcula las operaciones
+*
+*/
+void calcularOperaciones();
 #endif // HERRERA_H_INCLUDED
