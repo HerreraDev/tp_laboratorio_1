@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <windows.h>
 
 #include "herrera.h"
 
@@ -16,11 +17,14 @@ int flagNumero1 = 0;
 int flagNumero2 = 0;
 int flagOperaciones = 0;
 int flagVistaResultados = 0;
+//Variable del bucle
+char seguir = 's';
+
 
 float ingreseUnNumero()
 {
     float numero1;
-    printf("Ingrese un numero: ");
+    printf("            Ingrese un numero: ");
     scanf("%f", &numero1);
     /*float resultadoValido;
     char numero1[6];
@@ -46,12 +50,14 @@ float suma(float numero1, float numero2)
     return resultado;
 }
 
+
 float resta(float numero1, float numero2)
 {
     float resultado;
     resultado = numero1 - numero2;
     return resultado;
 }
+
 
 float multiplicacion(float numero1, float numero2)
 {
@@ -60,6 +66,7 @@ float multiplicacion(float numero1, float numero2)
     return resultado;
 }
 
+
 float division(float numero1, float numero2)
 {
     float resultado;
@@ -67,6 +74,7 @@ float division(float numero1, float numero2)
 
     return resultado;
 }
+
 
 int factoreo(int numero1)
 {
@@ -93,6 +101,93 @@ int factoreo(int numero1)
 }
 
 
+void calculadoraFinal()
+{
+    do
+    {
+        switch(menu())
+        {
+        case 1:
+            ingresoPrimerNumero();
+            break;
+        case 2:
+            ingresoSegundoNumero();
+            break;
+        case 3:
+            calcularOperaciones();
+            break;
+        case 4:
+            mostrarResultados();
+            break;
+
+        case 5:
+            animacionApagado();
+            break;
+        default:
+            printf("Error. Ingrese una opcion correcta\n");
+            system("pause");
+            fflush(stdin);
+            break;
+        }
+
+    }
+    while(seguir=='s');
+}
+
+
+void ingresoPrimerNumero()
+{
+    num1 = ingreseUnNumero();
+    flagNumero1 = 1;
+}
+
+
+void ingresoSegundoNumero()
+{
+    if(flagNumero1==0)
+    {
+        printf("Debe ingresar el primero numero antes que el segundo\n");
+        system("pause");
+    }
+    else
+    {
+        num2 = ingreseUnNumero();
+        flagNumero2 = 1;
+    }
+
+}
+
+
+void calcularOperaciones()
+{
+    if (flagNumero1==1 && flagNumero2==1)
+    {
+        system("cls");
+        printf("Calcular la suma (%.2f + %.2f)\n",num1,num2);
+        resultadoSuma = suma(num1,num2);
+        printf("Calcular la resta(%.2f - %.2f)\n",num1,num2);
+        resultadoResta = resta(num1,num2);
+        printf("Calcular la division(%.2f / %.2f)\n",num1,num2);
+        resultadoDivision = division(num1,num2);
+        printf("Calcular la multiplicación (%.2f * %.2f)\n",num1,num2);
+        resultadoMultiplicacion = multiplicacion(num1,num2);
+        printf("Calcular el factorial (A=%.2f)!  (B=%.2f)!\n",num1,num2);
+        factorialNum1 = factoreo(num1);
+        factorialNum2 = factoreo(num2);
+        flagOperaciones = 1;
+        if(num2==0)
+        {
+            printf("Recuerde que el segundo operando es 0, por lo que no se podra dividir ni factorial");
+        }
+        system("pause");
+        system("cls");
+    }
+    else
+    {
+        printf("No se pueden calcular las operaciones ya que no ingreso los dos operandos.");
+        system("pause");
+    }
+}
 
 
 void mostrarResultados()
@@ -125,7 +220,7 @@ void mostrarResultados()
         }
         else
         {
-            printf("Excede el espacio de la variable.\n");
+            printf("El factorial de %.2f excede el espacio de la variable.\n",num1);
         }
 
         ///////
@@ -139,7 +234,7 @@ void mostrarResultados()
         }
         else
         {
-            printf("Excede el espacio de la variable.\n");
+            printf("El factorial de %.2f excede el espacio de la variable.\n",num2);
         }
         flagVistaResultados = 1;
         system("pause");
@@ -152,83 +247,66 @@ void mostrarResultados()
 
 }
 
+
+int animacionApagado()
+{
+    Beep(1500,200);
+    Beep(1500,200);
+    system("cls");
+    system("color 5");
+    printf("Apagando..");
+    seguir = 'n';
+    return 0;
+}
+
+
 int menu()
 {
+
     int opcion;
     system("cls");
-    printf("Menu de opciones\n\n");
-    printf("1- Ingrese el 1er operando (A=%.2f)\n",num1);
-    printf("2- Ingrese el 2do operando (B=%.2f)\n",num2);
-    printf("3- Calcular todas las operaciones\n");
-    printf("4- Mostrar las operaciones\n");
-    printf("5- Salir\n\n");
+    printf("            ##################################################################\n");
+    printf("            #                       Calculadora                              #\n");
+    printf("            ##################################################################\n");
+    printf("            #                      Menu de opciones                          #\n");
+    printf("            ##################################################################\n");
+    if(flagNumero1==0)
+    {
+        printf("            ******************************************************************\n");
+        printf("                             1- Ingrese el 1er operando (A=x)                 \n");
+        printf("            ******************************************************************\n");
+    }
+    else
+    {
+        printf("            ******************************************************************\n");
+        printf("                             1- Ingrese el 1er operando (A=%.2f)             \n",num1);
+        printf("            ******************************************************************\n");
+    }
+    if(flagNumero2==0)
+    {
+        printf("            ******************************************************************\n");
+        printf("                             2- Ingrese el 2do operando (B=y)                 \n");
+        printf("            ******************************************************************\n");
+    }
+    else
+
+    {
+        printf("            ******************************************************************\n");
+        printf("                             2- Ingrese el 2do operando (B=%.2f)             \n",num2);
+        printf("            ******************************************************************\n");
+    }
+    printf("            ##################################################################\n");
+    printf("            #                3- Calcular todas las operaciones               #\n");
+    printf("            #                4- Mostrar las operaciones                      #\n");
+    printf("            #                5- Salir                                        #\n");
+    printf("            ##################################################################\n");
+    printf("            Elija una opcion: ");
+
     scanf("%d", &opcion);
 
     return opcion;
 }
 
-int animacionApagado()
-{
-    system("cls");
-    printf("Apagando..");
-    return 0;
-}
-
-void calculadoraFinal()
-{
-    char seguir = 's';
-    do
-    {
-        switch(menu())
-        {
-        case 1:
-            ingresoPrimerNumero();
-            break;
-        case 2:
-            ingresoSegundoNumero();
-            break;
-        case 3:
-            calcularOperaciones();
-            break;
-        case 4:
-            mostrarResultados();
-            break;
-
-        case 5:
-            animacionApagado();
-            seguir = 'n';
-            break;
-        default:
-            printf("Error. Ingrese una opcion correcta\n");
-            system("pause");
-            fflush(stdin);
-            break;
-        }
-
-    }
-    while(seguir=='s');
-}
-
-void ingresoPrimerNumero()
-{
-    num1 = ingreseUnNumero();
-    flagNumero1 = 1;
-}
-
-void ingresoSegundoNumero()
-{
-    if(flagNumero1==0)
-    {
-        printf("Debe ingresar el primero numero antes que el segundo\n");
-        system("pause");
-    }
-    else
-    {
-        num2 = ingreseUnNumero();
-        flagNumero2 = 1;
-    }
-
-}
 
 void reseteoVariables()
 {
@@ -246,36 +324,7 @@ void reseteoVariables()
     flagVistaResultados = 0;
 }
 
-void calcularOperaciones()
-{
-    if (flagNumero1==1 && flagNumero2==1)
-    {
-        system("cls");
-        printf("Calcular la suma (%.2f + %.2f)\n",num1,num2);
-        resultadoSuma = suma(num1,num2);
-        printf("Calcular la resta(%.2f - %.2f)\n",num1,num2);
-        resultadoResta = resta(num1,num2);
-        printf("Calcular la division(%.2f / %.2f)\n",num1,num2);
-        resultadoDivision = division(num1,num2);
-        printf("Calcular la multiplicación (%.2f * %.2f)\n",num1,num2);
-        resultadoMultiplicacion = multiplicacion(num1,num2);
-        printf("Calcular el factorial (A=%.2f)!  (B=%.2f)!\n",num1,num2);
-        factorialNum1 = factoreo(num1);
-        factorialNum2 = factoreo(num2);
-        flagOperaciones = 1;
-        if(num2==0)
-        {
-            printf("Recuerde que el segundo operando es 0, por lo que no se podra dividir ni factorial");
-        }
-        system("pause");
-        system("cls");
-    }
-    else
-    {
-        printf("No se pueden calcular las operaciones ya que no ingreso los dos operandos.");
-        system("pause");
-    }
-}
+
 /*int validar_numero(char numero[])
 {
     int i;
