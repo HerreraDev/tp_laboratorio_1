@@ -1,7 +1,4 @@
 #ifndef HERRERA_H_INCLUDED
-#define HERRERA_H_INCLUDED
-
-
 /**
 *
 *\brief pide un ingreso de numero flotante al usuario
@@ -67,73 +64,36 @@ float division(float numero1, float numero2);
 */
 int factoreo(int numero1);
 
-/**
-*
-*\brief mostrara el menu con los resultados de las operaciones
-*\return 0
-*
-*/
-void mostrarResultados();
-
-
 
 /**
 *
-*\brief despliega un menu con opciones
-*\param opcion, variable donde se guardara la opcion elegida
+*\brief despliega un menu con opciones y realiza
+*\param numero1, guardara el valor del numero que se le paso en la llamada y sera utilizada para mostrar el numero en el menu
+*\param numero2, guardara el valor del numero que se le paso en la llamada y sera utilizada para mostrar el numero en el menu
+*\param flagNum1, guardara el valor de la bandera que se le paso en la llamada de la funcion y sera utilizada dentro de un if
+*\param flagNum2, guardara el valor de la bandera que se le paso en la llamada de la funcion y sera utilizada en un if
 *\return retorna el numero elegido
 *
 */
-int menu();
+int menu(float numero1, float numero2, int flagNum1, int flagNum2);
 
 /**
 *
 *\brief realiza una animacion de apagado
-*\return 0
 *
 */
-int animacionApagado();
-
-/**
-*
-*\brief es la funcion encargada de ejecutar todo
-*
-*/
-void calculadoraFinal();
-
-/**
-*
-*\brief ejecuta el primer ingreso
-*
-*/
-void ingresoPrimerNumero();
-
-/**
-*
-*\brief ejecuta el segundo ingreso
-*
-*/
-void ingresoSegundoNumero();
+void animacionApagado();
 
 /**
  *
- * \brief resetea todas las variables declaradas anteriormente
+ * \brief reseteara a 0 los valores de las variables que recibira
+ * \param flag es la variable a la que se le cambiara el valor
  *
  */
-void reseteoVariables();
+void resetearFlags(int* flag);
 
-/**
- * \brief verifica que la cadena de caracteres ingresada no sean letras
- * \param numero[] es el vector que contiene la cadena
- * \return devuelve 0 si hubo letras, devuelve 1 si no hubo
- *
- */
-int validar_numero(char numero[]);
-
-/**
-*
-* \brief calcula las operaciones
-*
-*/
-void calcularOperaciones();
 #endif // HERRERA_H_INCLUDED
+#define HERRERA_H_INCLUDED
+
+
+
