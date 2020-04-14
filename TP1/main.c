@@ -30,20 +30,25 @@ int main()
             flagNumero1 = 1;
             break;
         case 2:
-            if(flagNumero1 == 1)
+            if(flagNumero1 == 0)
             {
-                num2 = ingreseUnNumero(&num2);
-                flagNumero2 = 1;
+                printf("            No se puede ingresar el segundo operando, ya que no se ingreso el primero\n");
+                system("pause");
             }
             else
             {
-                printf("No se puede ingresar el segundo operando, ya que no se ingreso el primero\n");
-                system("pause");
+                num2 = ingreseUnNumero();
+                flagNumero2 = 1;
             }
 
             break;
         case 3:
-            if (flagNumero1==1 && flagNumero2==1)
+            if (flagNumero1==0 && flagNumero2==0)
+            {
+                printf("            No se pueden calcular las operaciones ya que no ingreso los dos operandos.\n");
+                system("pause");
+            }
+            else
             {
                 printf("            ##################################################################\n");
                 printf("            Se calculara la suma (%.2f + %.2f)\n",num1,num2);
@@ -66,14 +71,14 @@ int main()
                 system("cls");
                 flagOperaciones = 1;
             }
-            else
-            {
-                printf("            No se pueden calcular las operaciones ya que no ingreso los dos operandos.\n");
-                system("pause");
-            }
             break;
         case 4:
-            if(flagOperaciones == 1)
+            if(flagOperaciones == 0)
+            {
+                printf("            No se pueden mostrar los resultados ya que no se realizaron las operaciones previamente\n");
+                system("pause");
+            }
+            else
             {
                 printf("            ##################################################################\n");
                 printf("                        El resultado de %.2f + %.2f es: %.2f \n", num1,num2,resultadoSuma);
@@ -122,11 +127,6 @@ int main()
                 resetearFlags(&flagNumero1);
                 resetearFlags(&flagNumero2);
                 resetearFlags(&flagOperaciones);
-                system("pause");
-            }
-            else
-            {
-                printf("            No se pueden mostrar los resultados ya que no se realizaron las operaciones previamente\n");
                 system("pause");
             }
             break;
