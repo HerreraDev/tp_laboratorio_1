@@ -9,8 +9,9 @@ int main()
 {
 
 //Variables que contendran los numeros a operar.
-    float num1=0, num2=0;
-    float resultadoSuma,resultadoResta,resultadoMultiplicacion,resultadoDivision;
+    int num1=0, num2=0;
+    int resultadoSuma,resultadoResta,resultadoMultiplicacion;
+    float resultadoDivision;
 //Variables para los factoriales
     int factorialNum1;
     int factorialNum2;
@@ -51,21 +52,21 @@ int main()
             else
             {
                 printf("            ##################################################################\n");
-                printf("            Se calculara la suma (%.2f + %.2f)\n",num1,num2);
+                printf("            Se calculara la suma (%d + %d)\n",num1,num2);
                 resultadoSuma = suma(num1,num2);
-                printf("            Se calculara la resta(%.2f - %.2f)\n",num1,num2);
+                printf("            Se calculara la resta(%d - %d)\n",num1,num2);
                 resultadoResta = resta(num1,num2);
-                printf("            Se calculara la division(%.2f / %.2f)\n",num1,num2);
+                printf("            Se calculara la division(%d / %d)\n",num1,num2);
                 resultadoDivision = division(num1,num2);
-                printf("            Se calculara la multiplicación (%.2f * %.2f)\n",num1,num2);
+                printf("            Se calculara la multiplicación (%d * %d)\n",num1,num2);
                 resultadoMultiplicacion = multiplicacion(num1,num2);
-                printf("            Se calculara el factorial (A=%.2f)!  (B=%.2f)!\n",num1,num2);
+                printf("            Se calculara el factorial (A=%d)!  (B=%d)!\n",num1,num2);
                 printf("            ##################################################################\n");
                 factorialNum1 = factoreo(num1);
                 factorialNum2 = factoreo(num2);
                 if(num2==0)
                 {
-                    printf("            Recuerde que el segundo operando es 0, por lo que no se podra dividir ni factorial.\n");
+                    printf("            Recuerde que el segundo operando es 0, por lo que no se podra dividir.\n");
                 }
                 system("pause");
                 system("cls");
@@ -81,8 +82,8 @@ int main()
             else
             {
                 printf("            ##################################################################\n");
-                printf("                        El resultado de %.2f + %.2f es: %.2f \n", num1,num2,resultadoSuma);
-                printf("                        El resultado de %.2f - %.2f es: %.2f \n", num1,num2,resultadoResta);
+                printf("                        El resultado de %d + %d es: %d \n", num1,num2,resultadoSuma);
+                printf("                        El resultado de %d - %d es: %d \n", num1,num2,resultadoResta);
 
                 if(num2==0)
                 {
@@ -90,14 +91,14 @@ int main()
                 }
                 else
                 {
-                    printf("                     EL resultado de %.2f / %.2f es: %.2f \n", num1,num2,resultadoDivision);
+                    printf("                     EL resultado de %d / %d es: %.2f \n", num1,num2,resultadoDivision);
                 }
 
-                printf("                     El resultado de %.2f * %.2f es: %.2f \n", num1,num2,resultadoMultiplicacion);
+                printf("                     El resultado de %d * %d es: %d \n", num1,num2,resultadoMultiplicacion);
 
                 if(num1 >= 0 && num1<12)
                 {
-                    printf("                     El factorial de %.2f es: %d\n",num1,factorialNum1);
+                    printf("                     El factorial de %d es: %d\n",num1,factorialNum1);
                 }
                 else if(num1 < 0)
                 {
@@ -105,12 +106,12 @@ int main()
                 }
                 else
                 {
-                    printf("                     El factorial de %.2f excede el espacio de la variable.\n",num1);
+                    printf("                     El factorial de %d excede el espacio de la variable.\n",num1);
                 }
 
                 if(num2 >= 0 && num2 < 12)
                 {
-                    printf("                     El factorial de %.2f es: %d\n",num2,factorialNum2);
+                    printf("                     El factorial de %d es: %d\n",num2,factorialNum2);
                 }
                 else if (num2 < 0)
                 {
@@ -118,7 +119,7 @@ int main()
                 }
                 else
                 {
-                    printf("                     El factorial de %.2f excede el espacio de la variable.\n",num2);
+                    printf("                     El factorial de %d excede el espacio de la variable.\n",num2);
                 }
                 printf("            ##################################################################\n");
                 printf("                   RECUERDE QUE UNA VEZ MOSTRADOS LOS RESULTADOS              \n");

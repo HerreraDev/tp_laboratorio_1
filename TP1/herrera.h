@@ -6,7 +6,7 @@
 *\return retorna el numero ingresado
 *
 */
-float ingreseUnNumero();
+int ingreseUnNumero();
 
 
 /**
@@ -18,7 +18,7 @@ float ingreseUnNumero();
 *\return retorna el resultado de la suma
 *
 */
-float suma(float numero1, float numero2);
+int suma(int numero1, int numero2);
 
 
 /**
@@ -30,7 +30,7 @@ float suma(float numero1, float numero2);
 *\return retorna el resultado de la resta
 *
 */
-float resta(float numero1, float numero2);
+int resta(int numero1, int numero2);
 
 
 /**
@@ -42,7 +42,7 @@ float resta(float numero1, float numero2);
 *\return retorna el resultado de la multiplicacion
 *
 */
-float multiplicacion(float numero1, float numero2);
+int multiplicacion(int numero1, int numero2);
 
 
 /**
@@ -54,7 +54,7 @@ float multiplicacion(float numero1, float numero2);
 *\return retorna el resultado de la division
 *
 */
-float division(float numero1, float numero2);
+float division(int numero1, int numero2);
 
 /**
 *
@@ -75,7 +75,7 @@ int factoreo(int numero1);
 *\return retorna el numero elegido
 *
 */
-int menu(float numero1, float numero2, int flagNum1, int flagNum2);
+int menu(int numero1, int numero2, int flagNum1, int flagNum2);
 
 /**
 *

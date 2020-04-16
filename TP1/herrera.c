@@ -6,41 +6,41 @@
 #include "herrera.h"
 
 
-float ingreseUnNumero()
+int ingreseUnNumero()
 {
-    float numero;
+    int numero;
     printf("            Ingrese un numero: ");
-    scanf("%f", &numero);
+    scanf("%d", &numero);
     system("pause");
     return numero;
 }
 
 
-float suma(float numero1, float numero2)
+int suma(int numero1, int numero2)
 {
-    float resultado;
+    int resultado;
     resultado = numero1 + numero2;
     return resultado;
 }
 
 
-float resta(float numero1, float numero2)
+int resta(int numero1, int numero2)
 {
-    float resultado;
+    int resultado;
     resultado = numero1 - numero2;
     return resultado;
 }
 
 
-float multiplicacion(float numero1, float numero2)
+int multiplicacion(int numero1, int numero2)
 {
-    float resultado;
+    int resultado;
     resultado = numero1 * numero2;
     return resultado;
 }
 
 
-float division(float numero1, float numero2)
+float division(int numero1, int numero2)
 {
     float resultado;
     resultado = (float)numero1 / numero2;
@@ -92,7 +92,7 @@ void animacionApagado()
 
 
 
-int menu(float numero1, float numero2, int flagNum1, int flagNum2)
+int menu(int numero1, int numero2, int flagNum1, int flagNum2)
 {
     int opcion;
     system("cls");
@@ -110,7 +110,7 @@ int menu(float numero1, float numero2, int flagNum1, int flagNum2)
     else
     {
         printf("            ******************************************************************\n");
-        printf("                             1- Ingrese el 1er operando (A=%.2f)             \n",numero1);
+        printf("                             1- Ingrese el 1er operando (A=%d)             \n",numero1);
         printf("            ******************************************************************\n");
     }
     if(flagNum2==0)
@@ -123,7 +123,7 @@ int menu(float numero1, float numero2, int flagNum1, int flagNum2)
 
     {
         printf("            ******************************************************************\n");
-        printf("                             2- Ingrese el 2do operando (B=%.2f)             \n",numero2);
+        printf("                             2- Ingrese el 2do operando (B=%d)             \n",numero2);
         printf("            ******************************************************************\n");
     }
     printf("            ##################################################################\n");
