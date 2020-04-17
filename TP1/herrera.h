@@ -1,8 +1,7 @@
 #ifndef HERRERA_H_INCLUDED
 /**
 *
-*\brief pide un ingreso de numero flotante al usuario
-*\param numero1, es la variable donde se guarda el numero ingresado
+*\brief pide un ingreso de numero entero al usuario
 *\return retorna el numero ingresado
 *
 */
@@ -11,10 +10,9 @@ int ingreseUnNumero();
 
 /**
 *
-*\brief suma dos numeros flotantes
-*\param numero1, es el primero numero flotante a sumar
-*\param numero2, es el segundo numero flotante a sumar
-*\param resultado, es donde se guarda la suma
+*\brief suma dos numeros entero
+*\param numero1, es el primero numero entero a operar
+*\param numero2, es el segundo numero entero a operar
 *\return retorna el resultado de la suma
 *
 */
@@ -23,10 +21,9 @@ int suma(int numero1, int numero2);
 
 /**
 *
-*\brief resta dos numeros flotantes
-*\param numero1, es el primero numero flotante a restar
-*\param numero2, es el segundo numero flotante a restar
-*\param resultado, es donde se guarda la resta
+*\brief resta dos numeros enteros
+*\param numero1, es el primero numero entero a operar
+*\param numero2, es el segundo numero entero a operar
 *\return retorna el resultado de la resta
 *
 */
@@ -35,10 +32,9 @@ int resta(int numero1, int numero2);
 
 /**
 *
-*\brief multiplica dos numeros flotantes
-*\param numero1, es el primero numero flotante a multiplicar
-*\param numero2, es el segundo numero flotante a multiplicar
-*\param resultado, es donde se guarda la multiplicacion
+*\brief multiplica dos numeros enteros
+*\param numero1, es el primero numero entero a operar
+*\param numero2, es el segundo numero entero a operar
 *\return retorna el resultado de la multiplicacion
 *
 */
@@ -47,10 +43,9 @@ int multiplicacion(int numero1, int numero2);
 
 /**
 *
-*\brief divide dos numeros flotantes
-*\param numero1, es el primero numero flotante a dividir
-*\param numero2, es el segundo numero flotante a dividir
-*\param resultado, es donde se guarda la division
+*\brief divide dos numeros enteros
+*\param numero1, es el primero numero entero a operar
+*\param numero2, es el segundo numero entero a operar
 *\return retorna el resultado de la division
 *
 */
@@ -67,7 +62,7 @@ int factoreo(int numero1);
 
 /**
 *
-*\brief despliega un menu con opciones y realiza
+*\brief despliega un menu con opciones
 *\param numero1, guardara el valor del numero que se le paso en la llamada y sera utilizada para mostrar el numero en el menu
 *\param numero2, guardara el valor del numero que se le paso en la llamada y sera utilizada para mostrar el numero en el menu
 *\param flagNum1, guardara el valor de la bandera que se le paso en la llamada de la funcion y sera utilizada dentro de un if
