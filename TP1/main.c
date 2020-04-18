@@ -96,7 +96,7 @@ int main()
 
                 printf("El resultado de %d * %d es: %d \n", num1,num2,resultadoMultiplicacion);
 
-                if(num1 >= 0 && num1<12)
+                if(num1 >= 0 && num1<=12)
                 {
                     printf("El factorial de %d es: %d\n",num1,factorialNum1);
                 }
@@ -109,7 +109,7 @@ int main()
                     printf("El factorial de %d excede el espacio de la variable.\n",num1);
                 }
 
-                if(num2 >= 0 && num2 < 12)
+                if(num2 >= 0 && num2 <= 12)
                 {
                     printf("El factorial de %d es: %d\n",num2,factorialNum2);
                 }

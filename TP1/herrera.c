@@ -52,7 +52,7 @@ float division(int numero1, int numero2)
 int factoreo(int numero1)
 {
     int contadorFactoreo;
-    unsigned long long factorial;
+    int factorial;
     factorial=1;
     if(numero1==0)
     {
