@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #include <stdio.h>
 #include <stdlib.h>
 #include "arrayEmployees.h"
@@ -51,13 +50,3 @@ int main()
     return 0;
 }
 
-=======
-#include <stdio.h>
-#include <stdlib.h>
-
-int main()
-{
-    printf("Hello world!\n");
-    return 0;
-}
->>>>>>> c0d9e3a6ce09d9a898a33bc0fcea6b53d21a8135
