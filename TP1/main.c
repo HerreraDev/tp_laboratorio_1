@@ -22,6 +22,9 @@ int main()
 //Variable del bucle
     char seguir = 's';
 
+
+
+
     do
     {
         switch(menu(num1,num2,flagNumero1,flagNumero2))
