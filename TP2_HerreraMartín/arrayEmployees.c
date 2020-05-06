@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "arrayEmployees.h"
 int menu()
 {
@@ -19,34 +20,35 @@ int menu()
 int initEmployees(eEmployee listado[], int len)
 {
     int retorno = -1;
-    for (int i = 0; i <  len; i++)
+    if(listado != NULL && len > 0)
     {
-        listado[i].isEmpty = 1;
-    }
-    for (int i = 0; i <  len; i++)
-    {
-        if(listado[i].isEmpty == 1)
+        for (int i = 0; i <  len; i++)
         {
-            retorno = 0;
+            listado[i].isEmpty = 1;
         }
-
+        retorno = 0;
     }
+
     return retorno;
 }
 
 
 //devuelve el indice del id ingresado
-int findEmployeeById(int id, eEmployee vec[], int tam)
+int findEmployeeById(eEmployee* lista, int len, int id)
 {
     int indice = -1;
-    for(int i = 0; i<tam; i++)
+    if(lista != NULL && len > 0)
     {
-        if(vec[i].id == id && vec[i].isEmpty==0)
+        for(int i = 0; i<len; i++)
         {
-            indice = i;
-            break;
+            if(lista[i].id == id && lista[i].isEmpty==0)
+            {
+                indice = i;
+                break;
+            }
         }
     }
+
     return indice;
 }
 
@@ -65,75 +67,95 @@ int buscarLibre(eEmployee vec[], int tam)
     return indice;
 }
 
-void altaEmpleado(eEmployee vec[], int tam)
+void altaEmpleado(eEmployee vec[], int tam,int* proxId)
 {
+    int existe;
+    int id;
+    char name[51];
+    char lastname[51];
+    float salary;
+    int sector;
+
+    id=*proxId;
+
+    existe = findEmployeeById(vec,tam,id);
+
     system("cls");
     printf("****Alta Empleado****\n\n");
-    int indiceVacio;
-    int id;
-    int existe;
-    indiceVacio = buscarLibre(vec,tam);
-    eEmployee auxEmpleado;
-
-    if(indiceVacio == -1) //hay lugar?
+    if(existe != -1)
     {
-        printf("No hay lugar\n");
+        printf("Ya existe un empleado con ese ID.\n");
     }
     else
     {
-        printf("Ingerse id: ");
-        scanf("%d",&id);
 
-        existe = findEmployeeById(id,vec,tam);
+        printf("Ingerse nombre: ");
+        fflush(stdin);
+        gets(name);
 
-        if(existe != -1)
-        {
-            printf("Ya existe un empleado con ese ID.\n");
-        }
-        else
-        {
-            auxEmpleado.id = id;
+        printf("Ingerse apellido: ");
+        fflush(stdin);
+        gets(lastname);
 
-            printf("Ingerse nombre: ");
-            fflush(stdin);
-            gets(auxEmpleado.name);
+        printf("Ingerse sueldo: ");
+        scanf("%f",&salary);
 
-            printf("Ingerse apellido: ");
-            fflush(stdin);
-            gets(auxEmpleado.lastName);
+        printf("Ingrese sector: ");
+        scanf("%d",&sector);
+        addEmployee(vec,tam,id,name,lastname,salary,sector);
 
-            printf("Ingerse sueldo: ");
-            scanf("%f",&auxEmpleado.salary);
+        //auxEmpleado.isEmpty = 0;
+        //vec[indiceVacio] = auxEmpleado;
+        (*proxId)++;
 
-            printf("Ingrese sector: ");
-            scanf("%d",&auxEmpleado.sector);
-            // addEmployee(vec,tam,auxEmpleado.id,auxEmpleado.name,auxEmpleado,auxEmpleado.salary,auxEmpleado.sector);
-
-            auxEmpleado.isEmpty = 0;
-
-            vec[indiceVacio] = auxEmpleado;
-        }
     }
     system("pause");
+
 }
+
+//Le tiene que llegar esos parametros y los tiene que meter en la indiveVacio posicion del vector lista de empleados
+int addEmployee(eEmployee* lista, int len, int id, char name[],char lastname[],float salary, int sector)
+{
+    int retorno = -1;
+    int indiceVacio;
+    eEmployee auxEmpleado;
+
+    indiceVacio = buscarLibre(lista,len);
+
+    auxEmpleado.id = id;
+    strcpy(auxEmpleado.name,name);
+    strcpy(auxEmpleado.lastName,lastname);
+    auxEmpleado.salary = salary;
+    auxEmpleado.sector = sector;
+    auxEmpleado.isEmpty = 0;
+
+    if(lista != NULL && len > 0 && indiceVacio != -1)
+    {
+        lista[indiceVacio] = auxEmpleado;
+    }
+
+
+    return retorno;
+}
+
+
 
 void mostrarEmpleado(eEmployee empleado)
 {
     printf("%d    %10s    %10s    %.2f    %2d\n",empleado.id,empleado.name,empleado.lastName,empleado.salary,empleado.sector);
 }
 
-int printEmployees(eEmployee vec[], int tam)
+int printEmployees(eEmployee* lista, int length)
 {
     system("cls");
     int flag = 0;
-
     printf("******** Listado Empleados **********\n\n");
     printf("Id          Nombre      Apellido    Sueldo      Sector\n\n");
-    for(int i = 0; i<tam; i++)
+    for(int i = 0; i<length; i++)
     {
-        if(vec[i].isEmpty == 0)
+        if(lista[i].isEmpty == 0)
         {
-            mostrarEmpleado(vec[i]);
+            mostrarEmpleado(lista[i]);
             flag = 1 ;
         }
     }
@@ -145,18 +167,13 @@ int printEmployees(eEmployee vec[], int tam)
     return 0;
 }
 
-//Le tiene que llegar esos parametros y los tiene que meter en la indiveVacio posicion del vector lista de empleados
-/*int addEmployee(eEmployee* lista, int len, int id, char name[],char lastname[],float salary, int sector)
-{
-
-}*/
 
 int removeEmployee(eEmployee* lista, int len, int id)
 {
     int retorno = -1;
     int indice;
     char confirma = 's';
-    indice= findEmployeeById(id,lista,len);
+    indice= findEmployeeById(lista,len,id);
 
     if(indice == -1)
     {

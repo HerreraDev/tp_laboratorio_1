@@ -16,22 +16,21 @@ int menu();
 int initEmployees(eEmployee listado[], int len);
 
 //devuelve el indice del id ingresado
-int findEmployeeById(int id, eEmployee vec[], int tam);
+int findEmployeeById(eEmployee* lista, int len, int id);
 
 //devuelve el indice del que esta vacio en vector lista
 int buscarLibre(eEmployee vec[], int tam);
 
 //
-void altaEmpleado(eEmployee vec[], int tam);
+void altaEmpleado(eEmployee vec[], int tam, int* proxId);
 
 //
-int printEmployees(eEmployee* lista, int tam);
-
+int printEmployees(eEmployee* lista, int length);
 //
 void mostrarEmpleado(eEmployee empleado);
 
 //añade a la lista los valores recibidos por parametro en la primera posicion libre
-//int addEmployee(eEmployee* lista, int len, int id, char name[],char lastname[],float salary, int sector);
+int addEmployee(eEmployee* lista, int len, int id, char name[],char lastname[],float salary, int sector);
 
 int removeEmployee(eEmployee* lista, int len, int id);
 
