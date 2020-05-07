@@ -17,14 +17,14 @@ int menu()
     return opcion;
 }
 
-int initEmployees(eEmployee listado[], int len)
+int initEmployees(eEmployee* lista, int len)
 {
     int retorno = -1;
-    if(listado != NULL && len > 0)
+    if(lista != NULL && len > 0)
     {
         for (int i = 0; i <  len; i++)
         {
-            listado[i].isEmpty = 1;
+            lista[i].isEmpty = 1;
         }
         retorno = 0;
     }
@@ -32,8 +32,6 @@ int initEmployees(eEmployee listado[], int len)
     return retorno;
 }
 
-
-//devuelve el indice del id ingresado
 int findEmployeeById(eEmployee* lista, int len, int id)
 {
     int indice = -1;
@@ -53,12 +51,12 @@ int findEmployeeById(eEmployee* lista, int len, int id)
 }
 
 //busca lugar libre en listado
-int buscarLibre(eEmployee vec[], int tam)
+int buscarLibre(eEmployee* lista, int len)
 {
     int indice = -1;
-    for(int i = 0; i < tam; i++)
+    for(int i = 0; i < len; i++)
     {
-        if(vec[i].isEmpty)
+        if(lista[i].isEmpty)
         {
             indice = i;
             break;
@@ -67,7 +65,7 @@ int buscarLibre(eEmployee vec[], int tam)
     return indice;
 }
 
-void altaEmpleado(eEmployee vec[], int tam,int* proxId)
+void altaEmpleado(eEmployee* lista, int len,int* proxId)
 {
     int existe;
     int id;
@@ -78,7 +76,7 @@ void altaEmpleado(eEmployee vec[], int tam,int* proxId)
 
     id=*proxId;
 
-    existe = findEmployeeById(vec,tam,id);
+    existe = findEmployeeById(lista,len,id);
 
     system("cls");
     printf("****Alta Empleado****\n\n");
@@ -102,7 +100,7 @@ void altaEmpleado(eEmployee vec[], int tam,int* proxId)
 
         printf("Ingrese sector: ");
         scanf("%d",&sector);
-        addEmployee(vec,tam,id,name,lastname,salary,sector);
+        addEmployee(lista,len,id,name,lastname,salary,sector);
 
         //auxEmpleado.isEmpty = 0;
         //vec[indiceVacio] = auxEmpleado;
@@ -118,20 +116,22 @@ int addEmployee(eEmployee* lista, int len, int id, char name[],char lastname[],f
 {
     int retorno = -1;
     int indiceVacio;
-    eEmployee auxEmpleado;
-
     indiceVacio = buscarLibre(lista,len);
-
-    auxEmpleado.id = id;
-    strcpy(auxEmpleado.name,name);
-    strcpy(auxEmpleado.lastName,lastname);
-    auxEmpleado.salary = salary;
-    auxEmpleado.sector = sector;
-    auxEmpleado.isEmpty = 0;
 
     if(lista != NULL && len > 0 && indiceVacio != -1)
     {
+
+        eEmployee auxEmpleado;
+
+        auxEmpleado.id = id;
+        strcpy(auxEmpleado.name,name);
+        strcpy(auxEmpleado.lastName,lastname);
+        auxEmpleado.salary = salary;
+        auxEmpleado.sector = sector;
+        auxEmpleado.isEmpty = 0;
+
         lista[indiceVacio] = auxEmpleado;
+        retorno = 0;
     }
 
 
@@ -201,3 +201,104 @@ int removeEmployee(eEmployee* lista, int len, int id)
     }
     return retorno;
 }
+
+int subMenuOrden()
+{
+    int opcion;
+
+    printf("1- Listado de los empleados ordenados alfabeticamente por Apellido y Sector.\n");
+    printf("2- Total y promedio de los salarios, y cuantos empleados \n");
+    scanf("%d",&opcion);
+
+    return opcion;
+}
+int menuOpcionOrden()
+{
+    int opcion;
+
+    printf("1- Orden ascendente.\n");
+    printf("2- Orden descendente.\n");
+    scanf("%d",&opcion);
+
+    return opcion;
+}
+
+void informes(eEmployee* lista, int len)
+{
+    int opcion;
+    int opcionOrden;
+    opcion = subMenuOrden();
+    if(opcion == 1)
+    {
+        opcionOrden = menuOpcionOrden();
+        if(opcionOrden==1)
+        {
+            sortEmployees(lista,len,1);
+            printEmployees(lista,len);
+            system("pause");
+
+        }
+        else if (opcionOrden == 2)
+        {
+            sortEmployees(lista,len,0);
+            printEmployees(lista,len);
+            system("pause");
+        }
+    }
+}
+
+int sortEmployees(eEmployee* lista, int len, int order)
+{
+    int exito = -1;
+    if(lista != NULL && len > 0)
+    {
+
+        eEmployee auxEmpleado;
+        if(order == 1)
+        {
+            for(int i = 0; i < len - 1; i++)
+            {
+                for(int j = i + 1; j < len; j++)
+                {
+                    if(lista[i].sector > lista[j].sector)
+                    {
+                        auxEmpleado = lista[i];
+                        lista[i] = lista[j];
+                        lista[j] = auxEmpleado;
+                    }
+                    else if (lista[i].sector == lista[j].sector && strcmp(lista[i].lastName,lista[j].lastName)>0)
+                    {
+                        auxEmpleado = lista[i];
+                        lista[i] = lista[j];
+                        lista[j] = auxEmpleado;
+                    }
+                }
+            }
+        }
+        else if (order == 0)
+        {
+            for(int i = 0; i < len - 1; i++)
+            {
+                for(int j = i + 1; j < len; j++)
+                {
+                    if(lista[i].sector < lista[j].sector)
+                    {
+                        auxEmpleado = lista[i];
+                        lista[i] = lista[j];
+                        lista[j] = auxEmpleado;
+                    }
+                    else if (lista[i].sector == lista[j].sector && strcmp(lista[i].lastName,lista[j].lastName)<0)
+                    {
+                        auxEmpleado = lista[i];
+                        lista[i] = lista[j];
+                        lista[j] = auxEmpleado;
+                    }
+                }
+            }
+        }
+        exito = 0;
+    }
+
+    return exito;
+}
+
