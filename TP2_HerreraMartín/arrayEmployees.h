@@ -37,8 +37,8 @@ int initEmployees(eEmployee* lista, int len);
  */
 int findEmployeeById(eEmployee* lista, int len, int id);
 
-//devuelve el indice del que esta vacio en vector lista
-/** \brief
+
+/** \brief devuelve el indice del que esta vacio en vector lista
  *
  * \param lista, puntero del array de empleados
  * \param len, longitud del array
@@ -54,7 +54,7 @@ int buscarLibre(eEmployee* lista, int len);
  * \return es void
  *
  */
-void altaEmpleado(eEmployee* lista , int len, int* proxId);
+void altaEmpleado(eEmployee* lista , int len, int* proxId, int* banderaPrimerIngreso);
 
 /** \brief imprime por pantalla el array en forma encolumnada
  *
@@ -123,11 +123,38 @@ int menuOpcionOrden();
  */
 int sortEmployees(eEmployee* lista, int len, int order);
 
+
 /** \brief engloba el funcionamiento de la cuarta opcion del menu principal
  *
  * \return void
  *
  */
-
 void informes(eEmployee* lista, int len);
+
+/** \brief funcion que se calcula el salario total y el promedio.
+ *
+ * \param lista, puntero del array de empleados
+ * \param len, longitud del array
+ * \return
+ *
+ */
+void informarTotalSueldos(eEmployee* lista,int tam);
+
+/** \brief permite modificar los datos de un empleado.
+ *
+ * \param lista, puntero del array de empleados
+ * \param len, longitud del array
+ * \return
+ *
+ */
+void modificarEmpleado(eEmployee* lista, int len);
+
+/** \brief menu que te deja elegir que parametro modificar y devuelve un entero
+ *
+ * \return devuelva la opcion en entero.
+ *
+ */
+int subMenuModificacion();
+
+
 #endif // ARRAYEMPLOYEES_H_INCLUDED

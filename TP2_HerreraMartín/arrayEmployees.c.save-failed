@@ -387,7 +387,7 @@ void modificarEmpleado(eEmployee* lista, int len)
             }
             break;
         case 3:
-            if(utn_getNumeroFlotante(&nuevoSueldo,"Ingrese nuevo sueldo: ","Error, solo puede digitar numeros",0,1000000,3)==-1)
+            if(utn_getNumero(&nuevoSueldo,"Ingrese nuevo sueldo: ","Error, solo puede digitar numeros",0,1000000,3)==-1)
             {
                 printf("Error, se acabaron los intentos.\n");
                 printf("Operacion cancelada.\n");
@@ -410,14 +410,13 @@ void modificarEmpleado(eEmployee* lista, int len)
             }
             else
             {
-                lista[indice].sector = nuevoSector;
-                printf("Se realizo la modificacion del sueldo del empleado solicitado. \n");
-                system("pause");
+
             }
+            lista[indice].sector = nuevoSector;
+            printf("Se realizo la modificacion del sueldo del empleado solicitado. \n");
             break;
         default:
             printf("Opcion incorrecta.\n");
-            system("pause");
             break;
         }
     }
@@ -432,7 +431,7 @@ int subMenuModificacion()
     printf("2. Apellido.\n");
     printf("3. Salario.\n");
     printf("4. Sector.\n");
-    utn_getNumero(&opcion,"Ingrese una opcion: ","ERROR, solo debe ingresar una de esas opciones.\n",1,4,3);
+    scanf("%d",&opcion);
     system("pause");
     return opcion;
 }
