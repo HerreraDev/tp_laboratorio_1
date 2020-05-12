@@ -3,6 +3,7 @@
 #include <string.h>
 #include "arrayEmployees.h"
 #include "utn.h"
+
 int menu()
 {
     int opcion;
@@ -50,7 +51,6 @@ int findEmployeeById(eEmployee* lista, int len, int id)
     return indice;
 }
 
-//busca lugar libre en listado
 int buscarLibre(eEmployee* lista, int len)
 {
     int indice = -1;
@@ -69,12 +69,11 @@ void altaEmpleado(eEmployee* lista, int len,int* proxId,int* banderaPrimerIngres
 {
     int existe;
     int id;
-    char name[51];
-    char lastname[51];
-    float salary;
-    int sector;
+
+    eEmployee auxIngreso;
 
     id=*proxId;
+
 
     existe = buscarLibre(lista,len);
 
@@ -87,12 +86,12 @@ void altaEmpleado(eEmployee* lista, int len,int* proxId,int* banderaPrimerIngres
     {
         system("cls");
         printf("****Alta Empleado****\n\n");
-        utn_getNombre(name,51,"Ingrese nombre: ","Error, solo debe digitar letras.\n",3);
-        utn_getNombre(lastname,51,"Ingrese apellido: ","Error, solo debe digitar letras.\n",3);
+        utn_getNombre(auxIngreso.name,51,"Ingrese nombre: ","Error, solo debe digitar letras.\n",3);
+        utn_getNombre(auxIngreso.lastName,51,"Ingrese apellido: ","Error, solo debe digitar letras.\n",3);
         //El sueldo maximo sera de 1000000.
-        utn_getNumeroFlotante(&salary,"Ingrese sueldo: ","Error, solo digite numeros.\n",0,1000000,3);
-        utn_getNumero(&sector,"Ingrese sector del 1 al 5: ","Error, del 1 al 5.\n",1,5,3);
-        if(addEmployee(lista,len,id,name,lastname,salary,sector) == -1)
+        utn_getNumeroFlotante(&auxIngreso.salary,"Ingrese sueldo: ","Error, solo digite numeros y mayores a 0.\n",0,1000000,3);
+        utn_getNumero(&auxIngreso.sector,"Ingrese sector del 1 al 5: ","Error, del 1 al 5.\n",1,5,3);
+        if(addEmployee(lista,len,id,auxIngreso.name,auxIngreso.lastName,auxIngreso.salary,auxIngreso.sector) == -1)
         {
             printf("Error en la carga.\n");
         }
@@ -139,7 +138,7 @@ int addEmployee(eEmployee* lista, int len, int id, char name[],char lastname[],f
 
 void mostrarEmpleado(eEmployee empleado)
 {
-    printf("%d    %10s    %10s    %.2f    %2d\n",empleado.id,empleado.name,empleado.lastName,empleado.salary,empleado.sector);
+    printf("%d          %20s             %20s                   %.2f         %2d\n",empleado.id,empleado.name,empleado.lastName,empleado.salary,empleado.sector);
 }
 
 int printEmployees(eEmployee* lista, int length)
@@ -147,7 +146,7 @@ int printEmployees(eEmployee* lista, int length)
     system("cls");
     int flag = 0;
     printf("******** Listado Empleados **********\n\n");
-    printf("Id          Nombre      Apellido    Sueldo      Sector\n\n");
+    printf("Id                          Nombre                         Apellido                      Sueldo         Sector\n\n");
     for(int i = 0; i<length; i++)
     {
         if(lista[i].isEmpty == 0)

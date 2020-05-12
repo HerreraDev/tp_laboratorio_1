@@ -51,6 +51,8 @@ int buscarLibre(eEmployee* lista, int len);
  *
  * \param lista, puntero del array de empleados
  * \param len, longitud del array
+ * \param proxId, puntero del entero que contiene el id.
+ * \param banderaPrimerIngreso, puntero de la bandera del primer ingreso
  * \return es void
  *
  */
