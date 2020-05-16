@@ -1,81 +1,99 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "arrayEmployees.h"
-#include "utn.h"
+#include "validacionesHerrera.h"
 #define TAM 1000
+
 
 int main()
 {
-    int banderaPrimerIngreso = 0;
+    int flagFirstEntry = 0;
     int auxId;
-    int proxId = 1000; //las Ids comenzaran en 1000.
-    char seguir = 's';
+    int nextId = 1000; //las Ids comenzaran en 1000.
+    char keep = 's';
     int id;
     int auxInit; //Verifica si se pudo inicializar isEmpty en 1.
     eEmployee lista[TAM];
 
     auxInit = initEmployees(lista,TAM); //Inicializo el vector y si hubo error, devuelve -1.
+
     if(auxInit != 0)
     {
-        printf("Error, no se pudieron inicializar los isEmpty en 1");
+        printf("Error initializing the arrays");
     }
-
-
-    do
+    else
     {
-        switch(menu())
+        do
         {
-        case 1 :
-            altaEmpleado(lista,TAM,&proxId,&banderaPrimerIngreso);
-            break;
-        case 2:
-            if(banderaPrimerIngreso == 0)
+            if(verifyIfArrayIsEmpty(lista,TAM)==0)
             {
-                printf("Sistema vacio, debe ingresar un empleado al menos.\n");
+                flagFirstEntry = 0;
+            }
+
+            switch(menu())
+            {
+            case 1 :
+                employeeRegistration(lista,TAM,&nextId,&flagFirstEntry);
+                break;
+            case 2:
+                if(flagFirstEntry == 0)
+                {
+                    printf("System empty, an employee must be registered at least.\n");
+                    system("pause");
+                }
+                else
+                {
+                    updateEmployee(lista,TAM);
+                }
+                break;
+            case 3:
+                if(flagFirstEntry == 0)
+                {
+                    printf("System empty, an employee must be registered at least.\n");
+                    system("pause");
+                }
+                else
+                {
+                    //El minimo es 1000 ya que la primer id es 1000, y en el maximo se pongo un numero grande que nunca se alcanzara.
+                    if(utn_getNumero(&id,"Enter the id to remove: \n","Error, please enter a valid id.\n",1000,20000000,3)==-1)
+                    {
+                        printf("ERROR, no tries left.");
+                        system("pause");
+                    }
+                    else
+                    {
+                        auxId=id;
+                        removeEmployee(lista,TAM,auxId);
+                    }
+
+                }
+                break;
+            case 4:
+                if(flagFirstEntry == 0)
+                {
+                    printf("System empty, an employee must be registered at least\n");
+                    system("pause");
+                }
+                else
+                {
+                    reports(lista,TAM);
+                }
+                break;
+            case 5:
+                keep = 'n';
+                printf("See you later!.\n");
                 system("pause");
-            }
-            else
-            {
-                modificarEmpleado(lista,TAM);
-            }
-            break;
-        case 3:
-            if(banderaPrimerIngreso == 0)
-            {
-                printf("Sistema vacio, debe ingresar un empleado al menos.\n");
+                break;
+            default:
+                printf("Wrong option, please enter a valid option.\n\n");
                 system("pause");
+                break;
             }
-            else
-            {
-            //El minimo es 1000 ya que la primer id es 1000, y en el maximo se pongo un numero grande que nunca se alcanzara.
-            utn_getNumero(&id,"Ingrese id a eliminar: \n","Error, ingrese un numero mayor a 999",1000,20000000,3);
-            auxId=id;
-            removeEmployee(lista,TAM,auxId);
-            }
-            break;
-        case 4:
-            if(banderaPrimerIngreso == 0)
-            {
-                printf("Sistema vacio, debe ingresar un empleado al menos.\n");
-                system("pause");
-            }
-            else
-            {
-            informes(lista,TAM);
-            }
-            break;
-        case 5:
-            seguir = 'n';
-            printf("Hasta luego.\n");
-            system("pause");
-            break;
-        default:
-            printf("No es una opcion.\n\n");
-            system("pause");
-            break;
         }
+        while(keep == 's');
+
     }
-    while(seguir == 's');
     return 0;
 }
+
 

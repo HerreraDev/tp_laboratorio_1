@@ -1,18 +1,18 @@
 # depslib dependency file v1.0
-1589312328 source:c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp2_herreramartín\arrayemployees.c
+1589594465 source:c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp2_herreramartín\arrayemployees.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"arrayEmployees.h"
-	"utn.h"
+	"validacionesHerrera.h"
 
-1589224677 source:c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp2_herreramartín\main.c
+1589396488 source:c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp2_herreramartín\main.c
 	<stdio.h>
 	<stdlib.h>
 	"arrayEmployees.h"
-	"utn.h"
+	"validacionesHerrera.h"
 
-1589311411 c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp2_herreramartín\arrayemployees.h
+1589393482 c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp2_herreramartín\arrayemployees.h
 
 1589221299 c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp2_herreramartín\utn.h
 
@@ -20,4 +20,12 @@
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
+
+1589221299 c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp2_herreramartín\validacionesherrera.h
+
+1589393919 source:c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp2_herreramartín\validacionesherrera.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"validacionesHerrera.h"
 

@@ -2,35 +2,35 @@
 #include <stdlib.h>
 #include <string.h>
 #include "arrayEmployees.h"
-#include "utn.h"
+#include "validacionesHerrera.h"
 
 int menu()
 {
-    int opcion;
+    int option;
     system("cls");
-    printf("*********** Gestion de Empleados ***********\n");
-    printf("1-Alta de empleado\n");
-    printf("2-Modificacion de empleado\n");
-    printf("3-Baja de empleado\n");
-    printf("4-Informes\n");
-    printf("5.Salir\n");
-    utn_getNumero(&opcion,"Ingrese una opcion: ","Error, opcion no valida, usted tiene solos tres intentos.\n",1,5,3);
-    return opcion;
+    printf("*********** Employee Managment ***********\n");
+    printf("1-Employee registration\n");
+    printf("2-Update employee\n");
+    printf("3-Remove employee\n");
+    printf("4-Reports\n");
+    printf("5.Exit\n");
+    utn_getNumero(&option,"Enter an option: ","Error, wrong opcion.\n",1,5,3);
+    return option;
 }
 
 int initEmployees(eEmployee* lista, int len)
 {
-    int retorno = -1;
+    int succes = -1;
     if(lista != NULL && len > 0)
     {
         for (int i = 0; i <  len; i++)
         {
             lista[i].isEmpty = 1;
+            succes= 0;
         }
-        retorno = 0;
     }
 
-    return retorno;
+    return succes;
 }
 
 int findEmployeeById(eEmployee* lista, int len, int id)
@@ -51,113 +51,143 @@ int findEmployeeById(eEmployee* lista, int len, int id)
     return indice;
 }
 
-int buscarLibre(eEmployee* lista, int len)
+int findFreeIndex(eEmployee* lista, int len)
 {
-    int indice = -1;
+    int index = -1;
     for(int i = 0; i < len; i++)
     {
         if(lista[i].isEmpty)
         {
-            indice = i;
+            index = i;
             break;
         }
     }
-    return indice;
+    return index;
 }
 
-void altaEmpleado(eEmployee* lista, int len,int* proxId,int* banderaPrimerIngreso)
+int employeeRegistration(eEmployee* lista, int len,int* nextId,int* flagFirstEntry)
 {
-    int existe;
-    int id;
+    int succes = -1;
+    int nameFlag = 0;
+    int lastNameFlag = 0;
+    int salaryFlag = 0;
+    int sectorFlag = 0;
 
-    eEmployee auxIngreso;
-
-    id=*proxId;
-
-
-    existe = buscarLibre(lista,len);
-
-    if(existe == -1)
+    if(lista != NULL && len > 0)
     {
-        printf("Sistema completo.\n");
-        system("pause");
-    }
-    else
-    {
-        system("cls");
-        printf("****Alta Empleado****\n\n");
-        utn_getNombre(auxIngreso.name,51,"Ingrese nombre: ","Error, solo debe digitar letras.\n",3);
-        utn_getNombre(auxIngreso.lastName,51,"Ingrese apellido: ","Error, solo debe digitar letras.\n",3);
-        //El sueldo maximo sera de 1000000.
-        utn_getNumeroFlotante(&auxIngreso.salary,"Ingrese sueldo: ","Error, solo digite numeros y mayores a 0.\n",0,1000000,3);
-        utn_getNumero(&auxIngreso.sector,"Ingrese sector del 1 al 5: ","Error, del 1 al 5.\n",1,5,3);
-        if(addEmployee(lista,len,id,auxIngreso.name,auxIngreso.lastName,auxIngreso.salary,auxIngreso.sector) == -1)
+        int exist;
+        int id;
+
+        eEmployee auxEmployee;
+
+        id=*nextId;
+
+
+        exist = findFreeIndex(lista,len);
+
+        if(exist == -1)
         {
-            printf("Error en la carga.\n");
+            printf("System full.\n");
+            system("pause");
         }
         else
         {
-            (*proxId)++;
-            (*banderaPrimerIngreso)=1;
-            system("pause");
+            system("cls");
+            printf("****Employee registration****\n\n");
+            if(utn_getNombre(auxEmployee.name,51,"Enter name: ","Error, you can digit letters only and one name without spaces.\n",3)==0)
+            {
+                nameFlag = 1;
+            }
+            if(utn_getNombre(auxEmployee.lastName,51,"Enter lastname: ","Error, you can type letters only and one lastname without spaces.\n",3)==0)
+            {
+                lastNameFlag = 1;
+            }
+            //El sueldo maximo sera de 100000.
+            if(utn_getNumeroFlotante(&auxEmployee.salary,"Enter salary: ","Error, you can digit numbers and must be higher than zero.\n",0,100000,3)==0)
+            {
+                salaryFlag = 1;
+            }
+            if(utn_getNumero(&auxEmployee.sector,"Enter sector (1 to 5): ","Error, 1 to 5 only.\n",1,5,3)==0)
+            {
+                sectorFlag = 1;
+            }
+            if(nameFlag && lastNameFlag && salaryFlag && sectorFlag)
+            {
+                if(addEmployee(lista,len,id,auxEmployee.name,auxEmployee.lastName,auxEmployee.salary,auxEmployee.sector) == -1)
+                {
+                    printf("Data loading error.\n");
+                    system("pause");
+                }
+                else
+                {
+                    (*nextId)++;
+                    (*flagFirstEntry)=1;
+                    succes = 0;
+                    system("pause");
+
+                }
+
+            }
+            else
+            {
+                printf("Error, fail to load data");
+                system("pause");
+            }
 
         }
 
-
     }
-
-
+    return succes;
 }
 
-//Le tiene que llegar esos parametros y los tiene que meter en la indiveVacio posicion del vector lista de empleados
 int addEmployee(eEmployee* lista, int len, int id, char name[],char lastname[],float salary, int sector)
 {
-    int retorno = -1;
-    int indiceVacio;
-    indiceVacio = buscarLibre(lista,len);
+    int succes = -1;
+    int freeIndex;
+    freeIndex = findFreeIndex(lista,len);
 
-    if(lista != NULL && len > 0 && indiceVacio != -1)
+    if(lista != NULL && len > 0 && freeIndex != -1)
     {
 
-        eEmployee auxEmpleado;
+        eEmployee auxEmployee;
 
-        auxEmpleado.id = id;
-        strcpy(auxEmpleado.name,name);
-        strcpy(auxEmpleado.lastName,lastname);
-        auxEmpleado.salary = salary;
-        auxEmpleado.sector = sector;
-        auxEmpleado.isEmpty = 0;
+        auxEmployee.id = id;
+        strcpy(auxEmployee.name,name);
+        strcpy(auxEmployee.lastName,lastname);
+        auxEmployee.salary = salary;
+        auxEmployee.sector = sector;
+        auxEmployee.isEmpty = 0;
 
-        lista[indiceVacio] = auxEmpleado;
-        retorno = 0;
+        lista[freeIndex] = auxEmployee;
+        succes = 0;
     }
-    return retorno;
+    return succes;
 }
 
 
 
-void mostrarEmpleado(eEmployee empleado)
+void showEmployeeInfo(eEmployee employee)
 {
-    printf("%d          %20s             %20s                   %.2f         %2d\n",empleado.id,empleado.name,empleado.lastName,empleado.salary,empleado.sector);
+    printf("%d          %20s             %20s                   %.2f         %d\n",employee.id,employee.name,employee.lastName,employee.salary,employee.sector);
 }
 
 int printEmployees(eEmployee* lista, int length)
 {
     system("cls");
     int flag = 0;
-    printf("******** Listado Empleados **********\n\n");
-    printf("Id                          Nombre                         Apellido                      Sueldo         Sector\n\n");
+    printf("******** Employee list **********\n\n");
+    printf("Id                          Name                         Lastname                   Salary         Sector\n\n");
     for(int i = 0; i<length; i++)
     {
         if(lista[i].isEmpty == 0)
         {
-            mostrarEmpleado(lista[i]);
+            showEmployeeInfo(lista[i]);
             flag = 1 ;
         }
     }
     if(flag == 0)
     {
-        printf("No hay empleados que listar\n\n");
+        printf("No employees to list\n\n");
     }
     system("pause");
     return 0;
@@ -166,82 +196,82 @@ int printEmployees(eEmployee* lista, int length)
 
 int removeEmployee(eEmployee* lista, int len, int id)
 {
-    int retorno = -1;
-    int indice = -1;
+    int succes = -1;
+    int index = -1;
 
-    indice= findEmployeeById(lista,len,id);
+    index = findEmployeeById(lista,len,id);
 
-    if(indice == -1)
+    if(index == -1)
     {
-        printf("No hay registro de un empleado con el ID: %d \n",id);
+        printf("No employee registered with id: %d .\n",id);
         system("pause");
     }
     else
     {
-        mostrarEmpleado(lista[indice]);
+        showEmployeeInfo(lista[index]);
 
-        lista[indice].isEmpty = 1;
-        printf("Se ha realizado la baja con exito!!\n");
-        retorno = 0;
+        lista[index].isEmpty = 1;
+        printf("Employee removed succesfully!!\n");
+        succes = 0;
         system("pause");
     }
-    return retorno;
+    return succes;
 }
 
-int subMenuOrden()
+int subMenuOrder()
 {
     system("cls");
-    int opcion;
+    int option;
 
-    printf("1- Listado de los empleados ordenados alfabeticamente por Apellido y Sector.\n");
-    printf("2- Total y promedio de los salarios, y cuantos empleados \n");
-    utn_getNumero(&opcion,"Ingrese una opcion: ","ERROR, solo esas opciones.\n",1,2,3);
+    printf("1- Employee reports sorted by last name and sector.\n");
+    printf("2- Total and average of the salaries, and how many exceed the salary average.\n");
+    utn_getNumero(&option,"Enter an option: ","ERROR, please enter a valid option.\n",1,2,3);
 
-    return opcion;
+    return option;
 }
-int menuOpcionOrden()
+int menuOpcionOrder()
 {
     system("cls");
-    int opcion;
+    int option;
 
-    printf("1- Orden ascendente.\n");
-    printf("2- Orden descendente.\n");
-    utn_getNumero(&opcion,"Ingrese una opcion: ","ERROR, solo esas opciones.\n",1,2,3);
+    printf("1- Ascending order.\n");
+    printf("2- Descending order.\n");
+    utn_getNumero(&option,"Enter an option: ","ERROR, please enter a valid option.\n",1,2,3);
 
-    return opcion;
+    return option;
 }
 
-void informes(eEmployee* lista, int len)
+void reports(eEmployee* lista, int len)
 {
-    int opcion;
-    int opcionOrden;
-    opcion = subMenuOrden();
-    if(opcion == 1)
+    int option;
+    int optionOrder;
+    option = subMenuOrder();
+    if(option == 1)
     {
-        opcionOrden = menuOpcionOrden();
-        if(opcionOrden==1)
+        optionOrder = menuOpcionOrder();
+        if(optionOrder==1)
         {
             sortEmployees(lista,len,1);
             printEmployees(lista,len);
             system("pause");
 
         }
-        else if (opcionOrden == 2)
+        else if (optionOrder == 2)
         {
             sortEmployees(lista,len,0);
             printEmployees(lista,len);
             system("pause");
         }
     }
-    else if(opcion == 2)
+    else if(option == 2)
     {
-        informarTotalSueldos(lista,len);
+        reportTotalSalary(lista,len);
     }
 }
 
 int sortEmployees(eEmployee* lista, int len, int order)
 {
-    int exito = -1;
+    int succes = -1;
     if(lista != NULL && len > 0)
     {
 
@@ -252,13 +282,13 @@ int sortEmployees(eEmployee* lista, int len, int order)
             {
                 for(int j = i + 1; j < len; j++)
                 {
-                    if(lista[i].sector > lista[j].sector)
+                    if(strcmp(lista[i].lastName,lista[j].lastName)<0)
                     {
                         auxEmpleado = lista[i];
                         lista[i] = lista[j];
                         lista[j] = auxEmpleado;
                     }
-                    else if (lista[i].sector == lista[j].sector && strcmp(lista[i].lastName,lista[j].lastName)>0)
+                    else if (strcmp(lista[i].lastName,lista[j].lastName) == 0 && lista[i].sector > lista[j].sector)
                     {
                         auxEmpleado = lista[i];
                         lista[i] = lista[j];
@@ -273,13 +303,13 @@ int sortEmployees(eEmployee* lista, int len, int order)
             {
                 for(int j = i + 1; j < len; j++)
                 {
-                    if(lista[i].sector < lista[j].sector)
+                    if(strcmp(lista[i].lastName,lista[j].lastName)>0)
                     {
                         auxEmpleado = lista[i];
                         lista[i] = lista[j];
                         lista[j] = auxEmpleado;
                     }
-                    else if (lista[i].sector == lista[j].sector && strcmp(lista[i].lastName,lista[j].lastName)<0)
+                    else if (strcmp(lista[i].lastName,lista[j].lastName) == 0 && lista[i].sector < lista[j].sector)
                     {
                         auxEmpleado = lista[i];
                         lista[i] = lista[j];
@@ -288,151 +318,192 @@ int sortEmployees(eEmployee* lista, int len, int order)
                 }
             }
         }
-        exito = 0;
+        succes = 0;
     }
 
-    return exito;
+    return succes;
 }
 
-void informarTotalSueldos(eEmployee* lista, int tam)
+void reportTotalSalary(eEmployee* lista, int tam)
 {
-    int flagIngreso = 0;
-    float totalSueldos =0;
-    int contadorSueldos = 0;
-    float promedioSueldos;
+    int firstEntry = 0;
+    float totalSalary =0;
+    int contSalary = 0;
+    float salaryAverage;
+    int contHigherSalaryAverage = 0;
     system("cls");
-    printf("\n***** Total de Sueldos *****\n\n");
+    printf("\n***** Salary reports *****\n\n");
     for(int i=0; i<tam; i++)
     {
         if (lista[i].isEmpty ==0)
         {
-            totalSueldos += lista[i].salary;
-            contadorSueldos++;
-            flagIngreso = 1;
+            totalSalary += lista[i].salary;
+            contSalary++;
+            firstEntry = 1;
         }
-
     }
-    if(flagIngreso == 1)
+    salaryAverage = (float)totalSalary/contSalary;
+    for(int i = 0; i < tam; i++)
     {
-        promedioSueldos = (float)totalSueldos/contadorSueldos;
-        printf("El total de los sueldos es de : %.2f\n",totalSueldos);
-        printf("El promedio de los sueldos es de : %.2f\n",promedioSueldos);
-        system("pause");
-    }
-    else
-    {
-        printf("Error, todavia no se ingresaron sueldos\n");
-    }
-
-}
-
-void modificarEmpleado(eEmployee* lista, int len)
-{
-    int id;
-    int indice = -1;
-    char nuevoNombre[51];
-    char nuevoApellido[51];
-    float nuevoSueldo;
-    int nuevoSector;
-
-    system("cls");
-    printf("***** Modificar Empleado ***** \n \n");
-
-    //El minimo es 1000 ya que la primer menor id que puede existir es 1000, y en el maximo se pongo un numero grande que nunca se alcanzara.
-    utn_getNumero(&id,"Ingrese id del empleado del cual desea realizar una modificacion: ","Error.",1000,100000,3);
-
-    indice = findEmployeeById(lista,len,id);
-
-    if (indice == -1)
-    {
-        printf("No hay registro de un empleado con el Id: %d. \n", id);
-        system("pause");
-    }
-    else
-    {
-        mostrarEmpleado(lista[indice]);
-
-        switch(subMenuModificacion())
+        if(lista[i].isEmpty == 0 && lista[i].salary > salaryAverage)
         {
-        case 1:
-            if(utn_getNombre(nuevoNombre,51,"Ingrese nuevo nombre: ","Error, solo puede digitar letras.\n",3)== -1)
-            {
-                printf("ERROR, se acabaron los intentos.\n");
-                printf("Operacion cancelada.\n");
-                system("pause");
-            }
-            else
-            {
-                strcpy(lista[indice].name,nuevoNombre);
-                printf("Se realizo la modificacion del nombre del empleado solicitado. \n");
-                system("pause");
-
-            }
-
-            break;
-        case 2:
-            if(utn_getNombre(nuevoApellido,51,"Ingrese nuevo apellido: ","Error, solo puede digitar letras.\n",3)==-1)
-            {
-                printf("Error, se acabaron los intentos.\n");
-                printf("Operacion cancelada.\n");
-                system("pause");
-            }
-            else
-            {
-                strcpy(lista[indice].lastName,nuevoApellido);
-                printf("Se realizo la modificacion del apellido del empleado solicitado. \n");
-                system("pause");
-
-            }
-            break;
-        case 3:
-            if(utn_getNumeroFlotante(&nuevoSueldo,"Ingrese nuevo sueldo: ","Error, solo puede digitar numeros",0,1000000,3)==-1)
-            {
-                printf("Error, se acabaron los intentos.\n");
-                printf("Operacion cancelada.\n");
-                system("pause");
-            }
-            else
-            {
-                lista[indice].salary = nuevoSueldo;
-                printf("Se realizo la modificacion del sueldo del empleado solicitado. \n");
-                system("pause");
-
-            }
-            break;
-        case 4:
-            if(utn_getNumero(&nuevoSector,"Ingrese nuevo sector (1 al 5): ","Error, solo debe digitar numeros del 1 al 5.\n",1,5,3)==-1)
-            {
-                printf("Error, se acabaron los intentos.\n");
-                printf("Operacion cancelada.\n");
-                system("pause");
-            }
-            else
-            {
-                lista[indice].sector = nuevoSector;
-                printf("Se realizo la modificacion del sueldo del empleado solicitado. \n");
-                system("pause");
-            }
-            break;
-        default:
-            printf("Opcion incorrecta.\n");
-            system("pause");
-            break;
+            contHigherSalaryAverage++;
         }
+    }
+    if(firstEntry == 1)
+    {
+        printf("Total salary : %.2f\n",totalSalary);
+        printf("Average salary : %.2f\n",salaryAverage);
+        printf("Number of people who surpass the average salary: %d\n",contHigherSalaryAverage);
+
+        system("pause");
+    }
+    else
+    {
+        printf("Error, There are no salaries to calculate.\n");
     }
 
 }
 
-int subMenuModificacion()
+int updateEmployee(eEmployee* lista, int len)
 {
-    int opcion;
-    printf("Que desea modificar? \n");
-    printf("1. Nombre.\n");
-    printf("2. Apellido.\n");
-    printf("3. Salario.\n");
+    int succes = -1;
+    if(lista != NULL && len > 0)
+    {
+        int id;
+        int index = -1;
+        char newName[51];
+        char newLastName[51];
+        float newSalary;
+        int newSector;
+
+        system("cls");
+        printf("***** Update Employee ***** \n \n");
+
+        //El minimo es 1000 ya que la primer menor id que puede existir es 1000, y en el maximo se pongo un numero grande que nunca se alcanzara.
+        if(utn_getNumero(&id,"Enter the id of the employee: ","Error.",1000,100000,2)==-1)
+        {
+            printf("Canceled operation.\n");
+            system("pause");
+        }
+        else
+        {
+            index = findEmployeeById(lista,len,id);
+
+            if (index == -1)
+            {
+                printf("No employee registered with id: %d . \n", id);
+                system("pause");
+            }
+            else
+            {
+                showEmployeeInfo(lista[index]);
+
+                switch(subMenuUpdates())
+                {
+                case 1:
+                    if(utn_getNombre(newName,51,"Enter new name: ","Error, you can digit letters only and one name without spaces.\n",3)== -1)
+                    {
+                        printf("ERROR, no tries left.\n");
+                        printf("Canceled operation.\n");
+                        system("pause");
+                    }
+                    else
+                    {
+                        strcpy(lista[index].name,newName);
+                        printf("Updated successfully. \n");
+                        system("pause");
+
+                    }
+
+                    break;
+                case 2:
+                    if(utn_getNombre(newLastName,51,"Enter new lastname: ","Error, you can digit letters only and one lastname without spaces.\n",3)==-1)
+                    {
+                        printf("Error, no tries left.\n");
+                        printf("Canceled operation.\n");
+                        system("pause");
+                    }
+                    else
+                    {
+                        strcpy(lista[index].lastName,newLastName);
+                        printf("Updated successfully.\n");
+                        system("pause");
+
+                    }
+                    break;
+                case 3:
+                    if(utn_getNumeroFlotante(&newSalary,"Enter new salary: ","Error, you can digit",0,100000,3)==-1)
+                    {
+                        printf("Error, no tries left.\n");
+                        printf("Canceled operation.\n");
+                        system("pause");
+                    }
+                    else
+                    {
+                        lista[index].salary = newSalary;
+                        printf("Updated successfully. \n");
+                        system("pause");
+
+                    }
+                    break;
+                case 4:
+                    if(utn_getNumero(&newSector,"Ingrese nuevo sector (1 al 5): ","Error, solo debe digitar numeros del 1 al 5.\n",1,5,3)==-1)
+                    {
+                        printf("Error, no tries left.\n");
+                        printf("Canceled operation.\n");
+                        system("pause");
+                    }
+                    else
+                    {
+                        lista[index].sector = newSector;
+                        printf("Updated successfully. \n");
+                        system("pause");
+                    }
+                    break;
+                default:
+                    printf("Wrong option.\n");
+                    system("pause");
+                    break;
+                }
+                succes = 1;
+            }
+        }
+
+    }
+
+
+    return succes;
+
+}
+
+int subMenuUpdates()
+{
+    int option;
+    printf("What do you want to update? \n");
+    printf("1. Name.\n");
+    printf("2. Lastname.\n");
+    printf("3. Salary.\n");
     printf("4. Sector.\n");
-    utn_getNumero(&opcion,"Ingrese una opcion: ","ERROR, solo debe ingresar una de esas opciones.\n",1,4,3);
+    utn_getNumero(&option,"Enter an option: ","ERROR, wrong option.\n",1,4,3);
     system("pause");
-    return opcion;
+    return option;
+}
+
+int verifyIfArrayIsEmpty(eEmployee* lista,int len)
+{
+    int succes = 0;
+    if(lista != NULL && len > 0)
+    {
+        for(int i = 0; i < len; i++)
+        {
+            if(lista[i].isEmpty == 0)
+            {
+                succes = -1;
+                break;
+            }
+        }
+    }
+    return succes;
 }
 

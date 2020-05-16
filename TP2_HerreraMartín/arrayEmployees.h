@@ -45,35 +45,35 @@ int findEmployeeById(eEmployee* lista, int len, int id);
  * \return devuelve el indice del siguiente lugar libre en el vector o -1 si no hay lugar libre
  *
  */
-int buscarLibre(eEmployee* lista, int len);
+int findFreeIndex(eEmployee* lista, int len);
 
 /** \brief pide los datos que luego le pasa a la funcion addEmployee
  *
  * \param lista, puntero del array de empleados
  * \param len, longitud del array
- * \param proxId, puntero del entero que contiene el id.
- * \param banderaPrimerIngreso, puntero de la bandera del primer ingreso
- * \return es void
+ * \param nextId, puntero del entero que contiene el id.
+ * \param flagFirstEntry, puntero de la bandera del primer ingreso
+ * \return 0 si todoOk o -1 si array null o longitud invalida
  *
  */
-void altaEmpleado(eEmployee* lista , int len, int* proxId, int* banderaPrimerIngreso);
+int employeeRegistration(eEmployee* lista , int len, int* nextId, int* flagFirstEntry);
 
 /** \brief imprime por pantalla el array en forma encolumnada
  *
  * \param lista, puntero del array de empleados
  * \param length, longitud del array
- * \return 0
+ * \return 0 si todoOk o -1 si array null o longitud invalida
  *
  */
 int printEmployees(eEmployee* lista, int length);
 
 /** \brief muestra los datos del array de empelados que le llega a traves de la funcion printEmployee
  *
- * \param empleado, array de empleados
+ * \param empleado, una entidad del tipo eEmployee
  * \return void
  *
  */
-void mostrarEmpleado(eEmployee empleado);
+void showEmployeeInfo(eEmployee employee);
 
 /** \brief agrega en un array de empleados existente los valores recibidos como parametro en la
  *         primera posicion libre
@@ -105,14 +105,14 @@ int removeEmployee(eEmployee* lista, int len, int id);
  * \return devuelve un entero segun la opcion elegida
  *
  */
-int subMenuOrden();
+int subMenuOrder();
 
 /** \brief despliega un menu para elegir el tipo de orden ASC o DES
  *
  * \return retora un entero segun la opcion elegida
  *
  */
-int menuOpcionOrden();
+int menuOpcionOrder();
 
 /** \brief Ordena el array de empleados por apellido y sector
  *         de manera ascendente o descendente
@@ -131,32 +131,40 @@ int sortEmployees(eEmployee* lista, int len, int order);
  * \return void
  *
  */
-void informes(eEmployee* lista, int len);
+void reports(eEmployee* lista, int len);
 
 /** \brief funcion que se calcula el salario total y el promedio.
  *
  * \param lista, puntero del array de empleados
  * \param len, longitud del array
- * \return
+ * \return void
  *
  */
-void informarTotalSueldos(eEmployee* lista,int tam);
+void reportTotalSalary(eEmployee* lista,int tam);
 
 /** \brief permite modificar los datos de un empleado.
  *
  * \param lista, puntero del array de empleados
  * \param len, longitud del array
- * \return
+ * \return devuelve -1 si hubo error de longitud o puntero null, o 0 si todo OK
  *
  */
-void modificarEmpleado(eEmployee* lista, int len);
+int updateEmployee(eEmployee* lista, int len);
 
 /** \brief menu que te deja elegir que parametro modificar y devuelve un entero
  *
  * \return devuelva la opcion en entero.
  *
  */
-int subMenuModificacion();
+int subMenuUpdates();
 
+/** \brief verifica que el array este vacio
+ *
+ * \param lista, puntero del array de empleados
+ * \param len, longitud del array
+ * \return devuelve entero 0 si el array esta vacio, -1 si no lo esta
+ *
+ */
+int verifyIfArrayIsEmpty(eEmployee* lista,int len);
 
 #endif // ARRAYEMPLOYEES_H_INCLUDED
