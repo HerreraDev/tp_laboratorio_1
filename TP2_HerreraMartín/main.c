@@ -4,6 +4,7 @@
 #include "validacionesHerrera.h"
 #define TAM 1000
 
+//terminado
 
 int main()
 {
