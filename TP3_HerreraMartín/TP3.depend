@@ -179,3 +179,48 @@
 	"LinkedList.h"
 	"Employee.h"
 
+1591753085 source:c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp3_herreramartín\controller.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Employee.h"
+	"parser.h"
+
+1533133022 c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp3_herreramartín\linkedlist.h
+
+1591750147 c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp3_herreramartín\employee.h
+	"LinkedList.h"
+
+1591750000 source:c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp3_herreramartín\employee.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Employee.h"
+
+1591753186 source:c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp3_herreramartín\parser.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Employee.h"
+
+1589393919 source:c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp3_herreramartín\validacionesherrera.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"validacionesHerrera.h"
+
+1589221299 c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp3_herreramartín\validacionesherrera.h
+
+1591752278 source:c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp3_herreramartín\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"LinkedList.h"
+	"Controller.h"
+	"Employee.h"
+	"validacionesHerrera.h"
+
+1533133022 c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp3_herreramartín\controller.h
+
+1533133022 c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp3_herreramartín\parser.h
+

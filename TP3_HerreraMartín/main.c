@@ -4,6 +4,8 @@
 #include "LinkedList.h"
 #include "Controller.h"
 #include "Employee.h"
+#include "validacionesHerrera.h"
+
 
 /****************************************************
     Menu:
@@ -18,30 +20,18 @@
      9. Guardar los datos de los empleados en el archivo data.bin (modo binario).
     10. Salir
 *****************************************************/
-typedef struct
-{
-    int id;
-    char nombre[120];
-    char sexo;
-    float sueldo;
 
-} eEmpleado;
 
-eEmpleado* new_Empleado();
-eEmpleado* new_EmpleadoParam(int id, char* nombre, char sexo, float sueldo);
-
-int mostrarEmpleado(eEmpleado* empleado);
-int mostrarEmpleados(LinkedList* lista);
 
 int compararEmpleadosId(void* emp1, void* emp2);
-
+int menu();
 
 int main()
 {
-    int option = 0;
+    char continuar = 's';
     LinkedList* listaEmpleados = ll_newLinkedList();
 
-    eEmpleado* auxEmpleado; //creo empleado
+    /*eEmpleado* auxEmpleado; //creo empleado
 
     auxEmpleado = new_EmpleadoParam(1111,"Pepe",'m',32500.60); //lo hardcodeo
     ll_add(listaEmpleados,auxEmpleado); //lo añado a la lista de linkedlist
@@ -67,99 +57,73 @@ int main()
 
     ll_sort(listaEmpleados,compararEmpleadosId,0);
 
-    mostrarEmpleados(listaEmpleados);
+    mostrarEmpleados(listaEmpleados);*/
 
-
-
-
-    /*do{
-        switch(option)
+    do{
+        switch(menu())
         {
             case 1:
-                controller_loadFromText("data.csv",listaEmpleados);
+                if(controller_loadFromText("data.csv",listaEmpleados))
+                {
+                    printf("Problemas para cargar los empelados.\n");
+
+                }
+                else
+                {
+                    printf("Empelados cargados con exitos.\n");
+                    system("pause");
+                    system("cls");
+                }
+                break;
+            case 2:
+                if(controller_loadFromBinary("data.csv",listaEmpleados))
+                {
+                    printf("Problemas para cargar los empelados.\n");
+
+                }
+                else
+                {
+                    printf("Empelados cargados con exitos.\n");
+                    system("pause");
+                    system("cls");
+                }
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                //deleteEmployee();
+                break;
+            case 6:
+                mostrarEmpleados(listaEmpleados);
+                system("pause");
+                system("cls");
+                break;
+            case 7:
+                break;
+            case 8:
+                break;
+            case 9:
+                break;
+            case 10:
+                continuar = 'n';
                 break;
         }
-    }while(option != 10);*/
+    }while(continuar == 's');
 
-    ll_deleteLinkedList(listaEmpleados);
+    //ll_deleteLinkedList(listaEmpleados);
     return 0;
 }
 
-eEmpleado* new_Empleado()
-{
-    return (eEmpleado*) malloc(sizeof(eEmpleado));
-}
 
-eEmpleado* new_EmpleadoParam(int id, char* nombre, char sexo, float sueldo)
-{
-    eEmpleado* nuevaPersona;
 
-    nuevaPersona = new_Empleado();
-
-    if(nuevaPersona != NULL)
-    {
-        //Aca habria que validar todos los datos.
-        /*if(personaSetId(nuevaPersona,id)
-                || personaSetNombre(nuevaPersona,nombre)
-                || personaSetSexo(nuevaPersona,sexo)
-                || personaSetAltura(nuevaPersona,altura)
-          )
-        {
-            free(nuevaPersona);
-            nuevaPersona = NULL;
-        }*/
-
-        //si alguno de los datos fueron incorrectos se pone
-        nuevaPersona->id = id;
-        strcpy(nuevaPersona->nombre,nombre);
-        nuevaPersona->sexo = sexo;
-        nuevaPersona->sueldo = sueldo;
-    }
-    return nuevaPersona;
-}
-
-int mostrarEmpleado(eEmpleado* empleado)
-{
-    int error = 1;
-
-    if(empleado != NULL)
-    {
-        printf("%d   %10s           %c          %.2f\n",empleado->id,empleado->nombre,empleado->sexo,empleado->sueldo);
-        error = 0;
-    }
-    return error;
-}
-
-int mostrarEmpleados(LinkedList* lista)
-{
-    int error = 1;
-    int flag = 0;
-    if(lista != NULL)
-    {
-        printf("ID          NOMBRE          SEXO       SUELDO\n");
-        for(int i=0; i < ll_len(lista); i++)
-        {
-            if( ((eEmpleado*) ll_get(lista,i)) != NULL) //devuelve puntero a void casteada a puntero empleado
-            {
-                mostrarEmpleado((eEmpleado*) ll_get(lista,i));
-                flag = 1;
-            }
-
-        }
-        if(flag==0)
-        {
-            printf("No hay personas para mostrar\n");
-        }
-        error = 0;
-    }
-    return error;
-}
 
 int compararEmpleadosId(void* emp1, void* emp2)
 {
     int rta;
-    eEmpleado* a = (eEmpleado*) emp1; //casteo porque vienen puntero a void
-    eEmpleado* b = (eEmpleado*) emp2;
+    Employee* a = (Employee*) emp1; //casteo porque vienen puntero a void
+    Employee* b = (Employee*) emp2;
 
     if(a->id == b->id)
     {
@@ -174,4 +138,21 @@ int compararEmpleadosId(void* emp1, void* emp2)
         rta = 1;
     }
     return rta;
+}
+
+int menu()
+{
+    int option;
+    printf("1- Cargar los datos de los empleados desde el archivo data.csv (modo texto).\n");
+    printf("2- Cargar los datos de los empleados desde el archivo data.csv (modo binario).\n");
+    printf("3- Alta de empleado.\n");
+    printf("4- Modificar datos de empleado.\n");
+    printf("5- Baja de empleado.\n");
+    printf("6- Listar empleados.\n");
+    printf("7- Ordenar empleados.\n");
+    printf("8- Guardar los datos de los empleados en el archivo data.csv (modo texto).\n");
+    printf("9- Guardar los datos de los empleados en el archivo data.csv (modo binario).\n");
+    printf("10- Salir.\n");
+    utn_getNumero(&option,"Elija una opcion: ","Error, opcion incorrecta.\n",1,10,3);
+    return option;
 }
