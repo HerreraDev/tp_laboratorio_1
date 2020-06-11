@@ -52,7 +52,7 @@ int parser_EmployeeFromBinary(FILE* pFile, LinkedList* pArrayListEmployee)
     Employee* pEmpleado;
     if(pFile!=NULL && pArrayListEmployee!= NULL)
     {
-        do
+        while(!feof(pFile))
         {
             pEmpleado=employee_new();
             fread(pEmpleado,sizeof(Employee),1,pFile);
@@ -60,8 +60,11 @@ int parser_EmployeeFromBinary(FILE* pFile, LinkedList* pArrayListEmployee)
             {
                 ll_add(pArrayListEmployee,pEmpleado);
             }
+            else
+            {
+                break;
+            }
         }
-        while(!feof(pFile));
         retorno=0;
     }
     return retorno;

@@ -27,6 +27,6 @@ int employee_setSueldo(Employee* this,int sueldo);
 int employee_getSueldo(Employee* this,int* sueldo);
 
 int mostrarEmpleado(Employee* empleado);
-int mostrarEmpleados(LinkedList* lista);
 
+//int findEmployeeById(Employee* lista,,int id);
 #endif // employee_H_INCLUDED

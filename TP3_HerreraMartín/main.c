@@ -31,6 +31,7 @@ int main()
     char continuar = 's';
     LinkedList* listaEmpleados = ll_newLinkedList();
 
+    int flagCargado = 0;
     /*eEmpleado* auxEmpleado; //creo empleado
 
     auxEmpleado = new_EmpleadoParam(1111,"Pepe",'m',32500.60); //lo hardcodeo
@@ -58,7 +59,7 @@ int main()
     ll_sort(listaEmpleados,compararEmpleadosId,0);
 
     mostrarEmpleados(listaEmpleados);*/
-
+//    initPersonas(listaEmpleados);
     do{
         switch(menu())
         {
@@ -70,19 +71,19 @@ int main()
                 }
                 else
                 {
+                    flagCargado = 1;
                     printf("Empelados cargados con exitos.\n");
-                    system("pause");
-                    system("cls");
                 }
                 break;
             case 2:
-                if(controller_loadFromBinary("data.csv",listaEmpleados))
+                if(controller_loadFromBinary("data.bin",listaEmpleados))
                 {
                     printf("Problemas para cargar los empelados.\n");
 
                 }
                 else
                 {
+                    flagCargado = 1;
                     printf("Empelados cargados con exitos.\n");
                     system("pause");
                     system("cls");
@@ -93,12 +94,17 @@ int main()
             case 4:
                 break;
             case 5:
-                //deleteEmployee();
+                if(flagCargado == 0)
+                {
+                    printf("No hay datos aun\n");
+                }
+                else
+                {
+                controller_removeEmployee(listaEmpleados);
+                }
                 break;
             case 6:
-                mostrarEmpleados(listaEmpleados);
-                system("pause");
-                system("cls");
+                controller_ListEmployee(listaEmpleados);
                 break;
             case 7:
                 break;
@@ -110,9 +116,12 @@ int main()
                 continuar = 'n';
                 break;
         }
+    system("pause");
+    system("cls");
     }while(continuar == 's');
 
     //ll_deleteLinkedList(listaEmpleados);
+
     return 0;
 }
 

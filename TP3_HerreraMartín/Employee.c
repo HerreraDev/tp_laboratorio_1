@@ -4,7 +4,20 @@
 
 #include "Employee.h"
 
+int initPersonas(LinkedList* lista)
+{
+    int todoOk = 0;
+    if (lista != NULL)
+    {
+        for(int i = 0; i < ll_len(lista); i++)
+        {
+            lista = NULL;
+        }
+        todoOk = 1;
+    }
 
+    return todoOk;
+}
 
 Employee* employee_new()
 {
@@ -151,27 +164,22 @@ int mostrarEmpleado(Employee* empleado)
     return error;
 }
 
-int mostrarEmpleados(LinkedList* lista)
+/*int findEmployeeById(Employee* lista, int id)
 {
-    int error = 1;
-    int flag = 0;
-    if(lista != NULL)
-    {
-        printf("ID                       NOMBRE                  HORAS TRABAJADAS       SUELDO\n");
-        for(int i=0; i < ll_len(lista); i++)
-        {
-            if( ((Employee*) ll_get(lista,i)) != NULL) //devuelve puntero a void casteada a puntero empleado
-            {
-                mostrarEmpleado((Employee*) ll_get(lista,i));
-                flag = 1;
-            }
+    int pIndice = -1;
+    int len = ll_len(lista);
 
-        }
-        if(flag==0)
+    if(lista != NULL && len > 0)
+    {
+        for(int i = 0; i < len; i++)
         {
-            printf("No hay personas para mostrar\n");
+            if(*(lista + i) != NULL && (*(lista+i))-> id == id)
+            {
+                pIndice = i;
+                break;
+            }
         }
-        error = 0;
     }
-    return error;
-}
+
+    return pIndice;
+}*/
