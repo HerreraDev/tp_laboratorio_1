@@ -28,5 +28,7 @@ int employee_getSueldo(Employee* this,int* sueldo);
 
 int mostrarEmpleado(Employee* empleado);
 
+int compararEmpleadosNombre(void* emp1, void* emp2);
+
 //int findEmployeeById(Employee* lista,,int id);
 #endif // employee_H_INCLUDED

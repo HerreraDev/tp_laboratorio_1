@@ -164,22 +164,23 @@ int mostrarEmpleado(Employee* empleado)
     return error;
 }
 
-/*int findEmployeeById(Employee* lista, int id)
+int compararEmpleadosNombre(void* emp1, void* emp2)
 {
-    int pIndice = -1;
-    int len = ll_len(lista);
+    int rta;
+    Employee* a = (Employee*) emp1; //casteo porque vienen puntero a void
+    Employee* b = (Employee*) emp2;
 
-    if(lista != NULL && len > 0)
+    if(strcmp(a->nombre,b->nombre)==0)
     {
-        for(int i = 0; i < len; i++)
-        {
-            if(*(lista + i) != NULL && (*(lista+i))-> id == id)
-            {
-                pIndice = i;
-                break;
-            }
-        }
+        rta = 0;
     }
-
-    return pIndice;
-}*/
+    else if(strcmp(a->nombre,b->nombre)>0)
+    {
+        rta = 1;
+    }
+    else
+    {
+        rta = 0;
+    }
+    return rta;
+}

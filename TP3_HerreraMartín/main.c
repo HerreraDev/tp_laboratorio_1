@@ -23,15 +23,12 @@
 
 
 
-int compararEmpleadosId(void* emp1, void* emp2);
 int menu();
 
 int main()
 {
     char continuar = 's';
     LinkedList* listaEmpleados = ll_newLinkedList();
-
-    int flagCargado = 0;
     /*eEmpleado* auxEmpleado; //creo empleado
 
     auxEmpleado = new_EmpleadoParam(1111,"Pepe",'m',32500.60); //lo hardcodeo
@@ -59,68 +56,107 @@ int main()
     ll_sort(listaEmpleados,compararEmpleadosId,0);
 
     mostrarEmpleados(listaEmpleados);*/
-//    initPersonas(listaEmpleados);
-    do{
+//  initPersonas(listaEmpleados);
+
+
+    do
+    {
         switch(menu())
         {
-            case 1:
-                if(controller_loadFromText("data.csv",listaEmpleados))
-                {
-                    printf("Problemas para cargar los empelados.\n");
+        case 1:
+            if(controller_loadFromText("data.csv",listaEmpleados))
+            {
+                printf("Problemas para cargar los empelados.\n");
 
-                }
-                else
-                {
-                    flagCargado = 1;
-                    printf("Empelados cargados con exitos.\n");
-                }
-                break;
-            case 2:
-                if(controller_loadFromBinary("data.bin",listaEmpleados))
-                {
-                    printf("Problemas para cargar los empelados.\n");
-
-                }
-                else
-                {
-                    flagCargado = 1;
-                    printf("Empelados cargados con exitos.\n");
-                    system("pause");
-                    system("cls");
-                }
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                if(flagCargado == 0)
-                {
-                    printf("No hay datos aun\n");
-                }
-                else
-                {
+            }
+            else
+            {
+                printf("Empelados cargados con exitos.\n");
+            }
+            break;
+        case 2:
+            if(controller_loadFromBinary("data.bin",listaEmpleados))
+            {
+                printf("Problemas para cargar los empelados.\n");
+            }
+            else
+            {
+                printf("Empelados cargados con exitos.\n");
+            }
+            break;
+        case 3:
+            break;
+        case 4:
+            if(ll_isEmpty(listaEmpleados)!=1)
+            {
+                printf("Puedo modif.\n");
+            }
+            else
+            {
+                printf("vacio");
+            }
+            break;
+        case 5:
+            if(ll_isEmpty(listaEmpleados)!=1)
+            {
                 controller_removeEmployee(listaEmpleados);
-                }
-                break;
-            case 6:
+            }
+            else
+            {
+                printf("No hay datos cargados aun\n");
+            }
+            break;
+        case 6:
+            if(ll_isEmpty(listaEmpleados)!=1)
+            {
                 controller_ListEmployee(listaEmpleados);
-                break;
-            case 7:
-                break;
-            case 8:
-                break;
-            case 9:
-                break;
-            case 10:
-                continuar = 'n';
-                break;
-        }
-    system("pause");
-    system("cls");
-    }while(continuar == 's');
+            }
+            else
+            {
+                printf("No hay datos cargados aun\n");
+            }
+            break;
+        case 7:
+            if(ll_isEmpty(listaEmpleados)!=1)
+            {
+                controller_sortEmployee(listaEmpleados);
+            }
+            else
+            {
+                printf("No hay datos cargados aun\n");
+            }
+            break;
+        case 8:
+            if(ll_isEmpty(listaEmpleados)!=1)
+            {
+            controller_saveAsText("data.csv",listaEmpleados);
 
-    //ll_deleteLinkedList(listaEmpleados);
+            }
+            else
+            {
+                printf("No hay datos cargados aun\n");
+            }
+            break;
+        case 9:
+            if(ll_isEmpty(listaEmpleados)!=1)
+            {
+                controller_saveAsBinary("data.bin",listaEmpleados);
+            }
+            else
+            {
+                printf("No hay datos cargados aun\n");
+            }
+            break;
+        case 10:
+            continuar = 'n';
+            break;
+        }
+        system("pause");
+        system("cls");
+    }
+    while(continuar == 's');
+
+//    ll_deleteLinkedList(listaEmpleados);
 
     return 0;
 }
@@ -128,26 +164,7 @@ int main()
 
 
 
-int compararEmpleadosId(void* emp1, void* emp2)
-{
-    int rta;
-    Employee* a = (Employee*) emp1; //casteo porque vienen puntero a void
-    Employee* b = (Employee*) emp2;
 
-    if(a->id == b->id)
-    {
-        rta = 0;
-    }
-    else if(a->id > b->id)
-    {
-        rta = -1;
-    }
-    else
-    {
-        rta = 1;
-    }
-    return rta;
-}
 
 int menu()
 {
@@ -165,3 +182,5 @@ int menu()
     utn_getNumero(&option,"Elija una opcion: ","Error, opcion incorrecta.\n",1,10,3);
     return option;
 }
+
+
