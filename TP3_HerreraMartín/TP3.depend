@@ -179,9 +179,10 @@
 	"LinkedList.h"
 	"Employee.h"
 
-1591922375 source:c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp3_herreramartín\controller.c
+1592069846 source:c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp3_herreramartín\controller.c
 	<stdio.h>
 	<stdlib.h>
+	<string.h>
 	"LinkedList.h"
 	"Employee.h"
 	"parser.h"
@@ -190,16 +191,17 @@
 
 1533133022 c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp3_herreramartín\linkedlist.h
 
-1591921668 c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp3_herreramartín\employee.h
+1592068422 c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp3_herreramartín\employee.h
 	"LinkedList.h"
 
-1591921957 source:c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp3_herreramartín\employee.c
+1592065725 source:c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp3_herreramartín\employee.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"Employee.h"
+	"validacionesHerrera.h"
 
-1591917507 source:c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp3_herreramartín\parser.c
+1592062198 source:c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp3_herreramartín\parser.c
 	<stdio.h>
 	<stdlib.h>
 	"LinkedList.h"
@@ -211,9 +213,9 @@
 	<string.h>
 	"validacionesHerrera.h"
 
-1589221299 c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp3_herreramartín\validacionesherrera.h
+1592069024 c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp3_herreramartín\validacionesherrera.h
 
-1591922341 source:c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp3_herreramartín\main.c
+1592069067 source:c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp3_herreramartín\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -222,7 +224,7 @@
 	"Employee.h"
 	"validacionesHerrera.h"
 
-1533133022 c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp3_herreramartín\controller.h
+1592068883 c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp3_herreramartín\controller.h
 
-1533133022 c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp3_herreramartín\parser.h
+1592068989 c:\users\marti\desktop\facultad\programacion 1\tps\tps\tp_laboratorio_1\tp3_herreramartín\parser.h
 

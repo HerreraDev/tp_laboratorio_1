@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "Employee.h"
+#include "validacionesHerrera.h"
 
 int initPersonas(LinkedList* lista)
 {
@@ -21,51 +22,50 @@ int initPersonas(LinkedList* lista)
 
 Employee* employee_new()
 {
-    return (Employee*) malloc(sizeof(Employee));
+    Employee* auxiliarNewEmployee;
+    auxiliarNewEmployee = (Employee*) malloc(sizeof(Employee));
+
+    if(auxiliarNewEmployee != NULL)
+    {
+        auxiliarNewEmployee->id = 0;
+        strcpy(auxiliarNewEmployee->nombre,"");
+        auxiliarNewEmployee->horasTrabajadas = 0;
+        auxiliarNewEmployee->sueldo = 0;
+    }
+
+    return auxiliarNewEmployee;
 }
 
 
 Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajadasStr,char* sueldoStr) //modificar lo que ya usamos en la ultima clase.
 {
-    Employee* newEmployee;
+    Employee* employeeToCreate;
 
-    newEmployee = employee_new();
+    employeeToCreate = employee_new();
 
-    if(newEmployee != NULL)
+    if(employeeToCreate != NULL)
     {
-        if(employee_setId(newEmployee,atoi(idStr))
-                || employee_setNombre(newEmployee,nombreStr)
-                || employee_setHorasTrabajadas(newEmployee,atoi(horasTrabajadasStr))
-                || employee_setSueldo(newEmployee,atoi(sueldoStr))
+        if(employee_setId(employeeToCreate,atoi(idStr))
+                || employee_setNombre(employeeToCreate,nombreStr)
+                || employee_setHorasTrabajadas(employeeToCreate,atoi(horasTrabajadasStr))
+                || employee_setSueldo(employeeToCreate,atoi(sueldoStr))
           )
         {
-            free(newEmployee);
-            newEmployee = NULL;
-        }
-        else
-        {
-            newEmployee->id = atoi(idStr);
-            strcpy(newEmployee->nombre,nombreStr);
-            newEmployee->horasTrabajadas = atoi(horasTrabajadasStr);
-            newEmployee->sueldo =  atoi(sueldoStr);
+            employee_delete(employeeToCreate);
+            employeeToCreate = NULL;
         }
 
     }
-    return newEmployee;
+    return employeeToCreate;
 }
 
-/*void employee_delete()
+void employee_delete(Employee* this)
 {
-    int error = 1;
-
-    if(persona != NULL)
+    if(this != NULL)
     {
-        free(persona);
-        error = 0;
+        free(this);
     }
-
-    return error;
-}*/
+}
 
 int employee_setId(Employee* this,int id)
 {
@@ -77,6 +77,7 @@ int employee_setId(Employee* this,int id)
     }
     return error;
 }
+
 int employee_getId(Employee* this,int* id)
 {
     int error = 1;
@@ -152,7 +153,7 @@ int employee_getSueldo(Employee* this,int* sueldo)
     return error;
 }
 
-int mostrarEmpleado(Employee* empleado)
+int showEmployeeInformation(Employee* empleado)
 {
     int error = 1;
 
@@ -164,23 +165,71 @@ int mostrarEmpleado(Employee* empleado)
     return error;
 }
 
-int compararEmpleadosNombre(void* emp1, void* emp2)
+int cmpEmployeesByName(void* employeeA, void* employeeB)
 {
-    int rta;
-    Employee* a = (Employee*) emp1; //casteo porque vienen puntero a void
-    Employee* b = (Employee*) emp2;
+    int returnedInt;
+    Employee* auxiliarEmployeeA = (Employee*) employeeA;
+    Employee* auxiliarEmployeeB = (Employee*) employeeB;
 
-    if(strcmp(a->nombre,b->nombre)==0)
+    if(strcmp(auxiliarEmployeeA->nombre,auxiliarEmployeeB->nombre)<0)
     {
-        rta = 0;
+        returnedInt = -1;
     }
-    else if(strcmp(a->nombre,b->nombre)>0)
+    else if(strcmp(auxiliarEmployeeA->nombre,auxiliarEmployeeB->nombre)>0)
     {
-        rta = 1;
+        returnedInt = 1;
     }
     else
     {
-        rta = 0;
+        returnedInt = 0;
     }
+    return returnedInt;
+}
+
+int findEmployeeById(LinkedList* pArrayListEmployee, int id)
+{
+    int indice = -1;
+    int auxiliarId;
+    Employee* auxiliarEmployee;
+
+    int listLenght = ll_len(pArrayListEmployee);
+
+    for(int i = 0; i< listLenght; i++)
+    {
+        auxiliarEmployee = ll_get(pArrayListEmployee, i);
+        if(employee_getId(auxiliarEmployee, &auxiliarId) == 0 &&
+           auxiliarId == id)
+        {
+            indice = i;
+        }
+    }
+    return indice;
+}
+
+int menu()
+{
+    int option;
+    printf("1- Cargar los datos de los empleados desde el archivo data.csv (modo texto).\n");
+    printf("2- Cargar los datos de los empleados desde el archivo data.bin (modo binario).\n");
+    printf("3- Alta de empleado.\n");
+    printf("4- Modificar datos de empleado.\n");
+    printf("5- Baja de empleado.\n");
+    printf("6- Listar empleados.\n");
+    printf("7- Ordenar empleados.\n");
+    printf("8- Guardar los datos de los empleados en el archivo data.csv (modo texto).\n");
+    printf("9- Guardar los datos de los empleados en el archivo data.bin (modo binario).\n");
+    printf("10- Salir.\n");
+    utn_getNumero(&option,"Elija una opcion: ","Error, opcion incorrecta.\n",1,10,3);
+    return option;
+}
+
+
+int menuModificar()
+{
+    int rta;
+    printf("1-Nuevo nombre\n");
+    printf("2-Nuevo horas trabajadas\n");
+    printf("3-Nuevo sueldo\n");
+    utn_getNumero(&rta,"Ingrese una opcion\n","Error, opcion invalida",1,3,3);
     return rta;
 }

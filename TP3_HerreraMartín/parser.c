@@ -3,64 +3,57 @@
 #include "LinkedList.h"
 #include "Employee.h"
 
-/** \brief Parsea los datos los datos de los empleados desde el archivo data.csv (modo texto).
- *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
- *
- */
+
 int parser_EmployeeFromText(FILE* pFile, LinkedList* pArrayListEmployee)
 {
-    int retorno=-1;
-    int cant;
-    char buffer[4][1000];
+    int error = 1;
+    int cantOfScan;
+    char bufferForTheScan[4][1000];
+    Employee* auxiliarEmployee;
 
-    Employee* auxEmployee;
-
-    //fscanf(pFile,"%[^,],%[^,],%[^,],%[^\n]",buffer[0],buffer[1],buffer[2],buffer[3]); //devuelve un entero con la cantidad de variables que cargo.
-
-    while(!feof(pFile)) //feof es find end of file, mientras no haya llegado al final del archivo, avanzar linea a linea.
+    if(pFile !=NULL && pArrayListEmployee != NULL)
     {
-        auxEmployee = employee_new();
-        cant = fscanf(pFile,"%[^,],%[^,],%[^,],%[^\n]",buffer[0],buffer[1],buffer[2],buffer[3]); //devuelve un entero con la cantidad de variables que cargo.
-        if(cant == 4)//cantidad de variables a cargar es cant.
-        {
-            auxEmployee = employee_newParametros(buffer[0],buffer[1],buffer[2],buffer[3]);
-            ll_add(pArrayListEmployee,auxEmployee);
-            retorno = 0;
-        }
-        else
-        {
-            break;
-        }
-    }
+        fscanf(pFile, "%*[^\n]\n");
 
-    return retorno;
-}
-
-/** \brief Parsea los datos los datos de los empleados desde el archivo data.csv (modo binario).
- *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
- *
- */
-int parser_EmployeeFromBinary(FILE* pFile, LinkedList* pArrayListEmployee)
-{
-    int retorno=-1;
-    Employee* auxEmployee;
-    if(pFile!=NULL && pArrayListEmployee!= NULL)
-    {
         while(!feof(pFile))
         {
-            auxEmployee=employee_new();
-            if(fread(auxEmployee,sizeof(Employee),1,pFile)!=0)
+            auxiliarEmployee = employee_new();
+            cantOfScan = fscanf(pFile,"%[^,],%[^,],%[^,],%[^\n]",bufferForTheScan[0],bufferForTheScan[1],bufferForTheScan[2],bufferForTheScan[3]);
+            if(cantOfScan == 4)
             {
-                ll_add(pArrayListEmployee,auxEmployee);
+                auxiliarEmployee = employee_newParametros(bufferForTheScan[0],bufferForTheScan[1],bufferForTheScan[2],bufferForTheScan[3]);
+                ll_add(pArrayListEmployee,auxiliarEmployee);
+                error = 0;
+            }
+            else
+            {
+                break;
             }
         }
-        retorno=0;
+
     }
-    return retorno;
+    return error;
+}
+
+
+int parser_EmployeeFromBinary(FILE* pFile, LinkedList* pArrayListEmployee)
+{
+    int error = 1;
+    Employee* auxiliarEmployee;
+    if(pFile!=NULL && pArrayListEmployee!= NULL)
+    {
+
+        //fscanf(pFile, "%*[^\n]\n"); //salto la primera linea del encabezado.
+
+        while(!feof(pFile))
+        {
+            auxiliarEmployee=employee_new();
+            if(fread(auxiliarEmployee,sizeof(Employee),1,pFile)!=0)
+            {
+                ll_add(pArrayListEmployee,auxiliarEmployee);
+            }
+        }
+        error = 0;
+    }
+    return error;
 }

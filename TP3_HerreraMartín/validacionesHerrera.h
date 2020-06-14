@@ -1,10 +1,3 @@
-/*
- * utn.h
- *
- *  Created on: Apr 6, 2020
- *      Author: Mauro
- */
-
 #ifndef UTN_H_
 #define UTN_H_
 
